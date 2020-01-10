@@ -1,86 +1,71 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
 import Head from "next/head";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
 
-const Home = ({ posts }) => (
-  <div className="container">
-    <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+import Header from '../components/header'
 
-    <div className="hero">
-      <h1 className="hero-title">Selman Kahya</h1>
-      <div className="hero-social-links">
-        <Link href="https://medium.com/@selmankahya">
-          <a className="social-link">Medium</a>
-        </Link>
-        <Link href="https://www.twitter.com/selmankahyax">
-          <a className="social-link">Twitter</a>
-        </Link>
-        <Link href="https://www.linkedin.com/in/selmankahya">
-          <a className="social-link">LinkedIn</a>
-        </Link>
-        <Link href="https://www.instagram.com/selmankahyax/?hl=en">
-          <a className="social-link">Instagram</a>
-        </Link>
+import Styles from '../src/styles'
+import Tab from '../components/tab'
+
+import BlogPost from '../components/blogPost'
+import AboutMe from "../components/aboutMe";
+
+class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      activeTab: 0
+    }
+    this.handleTabChange = this.handleTabChange.bind(this)
+  }
+
+  handleTabChange(tabId) {
+    this.setState({
+      activeTab: tabId
+    })
+  }
+  render() {
+    let margin = { marginRight: 12 }
+    let posts = this.props.posts
+    let blogPosts =
+      <div style={Styles.blogPostsContainer}>
+        {posts.map(post => (
+          <BlogPost slug={post.slug} title={post.title} details={post.details} date={post.date}>
+          </BlogPost>
+        ))}
       </div>
-    </div>
+    let displayContent = (this.state.activeTab == 0) ? blogPosts : <AboutMe></AboutMe>
+    return (
+      <div style={Styles.container}>
+        <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
+        <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
 
-    {posts.map(post => (
-      <div className="blog">
-        <h2 className="blog-title">
-          <Link href={post.slug}>
-            <a className="blog-title-link">{post.title}</a>
-          </Link>
-        </h2>
-        <div className="blog-text">
-          <ReactMarkdown source={post.details} />
+        <Head>
+          <title>Home</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header></Header>
+        <section style={Styles.tabsSection}>
+          <Tab handleTabChange={this.handleTabChange} tabId='0' tabText='POSTS' isActive={this.state.activeTab == 0}></Tab>
+          <Tab handleTabChange={this.handleTabChange} tabId='1' tabText='MY PROJECTS' isActive={this.state.activeTab == 1}></Tab>
+          <Tab handleTabChange={this.handleTabChange} tabId='2' tabText='ABOUT ME' isActive={this.state.activeTab == 2}></Tab>
+        </section>
+        <div id='main' style={{width:'100%', }}>
+
+          {displayContent}
         </div>
-        <div className="blog-date">{post.date}</div>
       </div>
-    ))}
+    )
+  }
+}
 
-    <style jsx>{`
-      .container {
-        max-width: 650px;
-        width: 100%;
-        margin: 0 auto;
-      }
-
-      .hero {
-        text-align: center;
-        margin: 96px 0;
-      }
-
-      .social-link {
-        margin-right: 8px;
-      }
-
-      .hero-title {
-        font-size: 48px;
-      }
-
-      .blog-date {
-        text-align: right;
-        color: #cccccc;
-        margin: 12px 0 48px 0;
-      }
-
-      a {
-        color: #35459e;
-        text-decoration: none;
-      }
-    `}</style>
-  </div>
-);
 
 Home.getInitialProps = async ({ req }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const res = await fetch("http://localhost:3000/api/posts");
   const json = await res.json();
+
   return { posts: json.posts };
 };
 
