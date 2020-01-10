@@ -10,6 +10,7 @@ import Tab from '../components/tab'
 import BlogPost from '../components/blogPost'
 import AboutMe from "../components/aboutMe";
 
+
 class Home extends React.Component {
   constructor() {
     super();
@@ -24,15 +25,16 @@ class Home extends React.Component {
       activeTab: tabId
     })
   }
-  render() {
-    let margin = { marginRight: 12 }
-    let posts = this.props.posts
 
+  render() {
+
+    let posts = this.props.posts
     let blogPosts =
 
       <div style={Styles.blogPostsContainer}>
         {posts.map(post => (
-          <BlogPost key={post.id} slug={post.slug} title={post.title} details={post.details} date={post.date}>
+          <BlogPost likes={post.likes} shortened={true} key={post.id} slug={post.slug} 
+              title={post.title} details={post.details} date={post.date}>
           </BlogPost>
         ))}
       </div>
@@ -63,11 +65,11 @@ class Home extends React.Component {
 }
 
 
-Home.getInitialProps = async ({ req }) => {
+Home.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const res = await fetch("http://localhost:3000/api/posts");
+
   const json = await res.json();
-  console.log(json)
   return { posts: json.posts };
 };
 
