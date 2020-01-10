@@ -12,7 +12,6 @@ const BlogPost = ({ post }) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-
     <div className="blog">
       <h2 className="blog-title">
         <Link href="/test">
@@ -46,7 +45,7 @@ const BlogPost = ({ post }) => (
 
       .blog-date {
         text-align: right;
-        color: #cccccc;
+        color: red;
         margin: 12px 0 48px 0;
       }
 
@@ -62,7 +61,9 @@ BlogPost.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const res = await fetch(`http://localhost:3000/api/post/${query.postId}`);
   const json = await res.json();
-  return { post: json.post };
+  console.log('qweqweqwe')
+  console.log(json)
+  return { post: json.post[0] };
 };
 
 export default BlogPost;

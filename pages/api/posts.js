@@ -1,7 +1,11 @@
-import { getPosts} from "../../src/blog-posts";
+const db = require('../../lib/db')
+const escape = require('sql-template-strings')
 
-const posts = getPosts();
+module.exports = async (req, res) => {
 
-export default async (req, res) => {
-  res.json({ posts });
-};
+  const postsList = await db.query(escape`
+      SELECT *
+      FROM posts
+    `)
+  res.status(200).json({ posts: postsList})
+}

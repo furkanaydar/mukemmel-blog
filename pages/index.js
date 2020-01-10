@@ -14,7 +14,7 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      activeTab: 0
+      activeTab: 0,
     }
     this.handleTabChange = this.handleTabChange.bind(this)
   }
@@ -27,10 +27,12 @@ class Home extends React.Component {
   render() {
     let margin = { marginRight: 12 }
     let posts = this.props.posts
+
     let blogPosts =
+
       <div style={Styles.blogPostsContainer}>
         {posts.map(post => (
-          <BlogPost slug={post.slug} title={post.title} details={post.details} date={post.date}>
+          <BlogPost key={post.id} slug={post.slug} title={post.title} details={post.details} date={post.date}>
           </BlogPost>
         ))}
       </div>
@@ -51,7 +53,7 @@ class Home extends React.Component {
           <Tab handleTabChange={this.handleTabChange} tabId='1' tabText='MY PROJECTS' isActive={this.state.activeTab == 1}></Tab>
           <Tab handleTabChange={this.handleTabChange} tabId='2' tabText='ABOUT ME' isActive={this.state.activeTab == 2}></Tab>
         </section>
-        <div id='main' style={{width:'100%', }}>
+        <div id='main' style={{ width: '100%', }}>
 
           {displayContent}
         </div>
@@ -65,7 +67,7 @@ Home.getInitialProps = async ({ req }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const res = await fetch("http://localhost:3000/api/posts");
   const json = await res.json();
-
+  console.log(json)
   return { posts: json.posts };
 };
 
