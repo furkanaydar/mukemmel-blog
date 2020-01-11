@@ -26,9 +26,9 @@ const Styles = {
     marginBottom: 32
   },
   blogTitle: {
-    letterSpacing: 3,
+    letterSpacing: 2.2,
     fontWeight: 'lighter',
-    fontFamily: 'serif',
+    fontFamily: 'Gelasio, serif',
     color: 'black',
     textDecoration: 'none'
   },
@@ -97,7 +97,7 @@ const Styles = {
   tab: {
     width: '100%',
     padding: 8,
-
+    verticalAlign: 'middle',
     fontFamily: 'PT Sans, serif',
     border: 'none',
     outline: 'none',
@@ -111,6 +111,7 @@ const Styles = {
   activeTab: {
     width: '100%',
     padding: 8,
+    verticalAlign: 'middle',
     //backgroundColor: '#001f3f',
     backgroundImage: ' radial-gradient( circle 919px at 1.7% 6.1%,  rgba(41,58,76,1) 0%, rgba(40,171,226,1) 100.2% )',
     borderBottom: 'none',

@@ -2,26 +2,28 @@ import React, { Component } from 'react'
 
 import Styles from '../src/styles'
 
-import { FaRegHeart, FaShare, FaHeart } from 'react-icons/fa'
+import { FaRegHeart, FaCommentAlt, FaHeart, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { TiCalendarOutline } from 'react-icons/ti'
 
 import Tag from '../components/tag'
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import Fade from 'react-reveal/Fade';
+import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
 class BlogPost extends Component {
     constructor() {
         super();
         this.state = {
-            isLiked: false
+            isLiked: false,
+            showComments: false
         }
         this.handleLike = this.handleLike.bind(this)
-
     }
+
     async handleLike() {
         let slug = this.props.slug
-        const updatePostLike = await fetch('http://localhost:3000/api/util/' + slug);
+        await fetch('http://localhost:3000/api/util/' + slug);
         const retrievePost = await fetch('http://localhost:3000/api/post/' + slug);
         const json = await retrievePost.json();
         this.setState({
@@ -39,53 +41,62 @@ class BlogPost extends Component {
         const iconStyle = {
             fontSize: 20,
             verticalAlign: 'middle',
-            marginRight: 6
+            marginRight: 6,
+            cursor: 'pointer',
         }
-        const iconStyleColor = {
-            color: 'darkred',
-            cursor: 'pointer'
+        const iconStyleColorHeart = {
+            color: 'darkred'
         }
-        const likedIconStyle = {
-            backgroundColor: 'red'
+        const iconStyleColorFacebook = {
+            color: '#3b5998',
         }
+        const iconStyleColorTwitter = {
+            color: '#1dcaff'
+        }
+
+        const facebookShareButton =
+            <div style={{ fontSize: 12, marginLeft: 8, flexGrow: 3 }}>
+                <FaFacebook className='icon' onClick={this.handleShareModal} style={{ ...iconStyle, ...iconStyleColorFacebook }}>
+
+                </FaFacebook>
+
+            </div>
+        const twitterShareButton =
+            <div style={{ fontSize: 12, marginLeft: 14, flexGrow: 3 }}>
+                <FaTwitter onClick={this.handleShareModal} style={{ ...iconStyle, ...iconStyleColorTwitter }}>
+                </FaTwitter>
+
+            </div>
+        const tags = ['engineering', 'science']
         return (
             <Fade big>
                 <div id='mainContainer' style={{ width: '100%' }}>
-                    <div id='container' style={Styles.blog}>
-                        <style jsx>{`
+                    <style jsx>{`
                         .blog-date {
                             text-align: right;
                             color: #cccccc;
                         }
-                        .morebutton {
-                            color: #58949C;
-                            transition: 0.2s;
-                            letter-spacing:1.4px;
-                        }
-                        .morebutton:hover {
-
-                        }
                     }
                 `}</style>
+
+                    <div id='container' style={Styles.blog}>
+
                         <div id='tagContainer' style={Styles.tagContainer}>
                             <Tag key='1' tagText='Computer Engineering'></Tag>
                             <Tag key='2' tagText='Working as a team'></Tag>
 
                             <Tag key='3' tagText='Popular'></Tag>
                             <Tag key='4' tagText='Trick'></Tag>
-
-
-
                         </div>
                         <div style={{ margin: 'auto' }}>
-                            <img src="https://image.freepik.com/free-psd/set-digital-devices-screen-mockup_53876-76505.jpg"
+                            <img src={this.props.postImg}
                                 style={Styles.blogImage} alt="Girl in a jacket" />
                         </div>
-                        <h2 style={{ marginBottom: 36, padding: 8 }}>
+                        <h1 style={{ marginTop: 24, marginBottom: 36, }}>
                             <Link href={this.props.slug}>
                                 <a style={Styles.blogTitle}>{this.props.title}</a>
                             </Link>
-                        </h2>
+                        </h1>
 
                         <div style={Styles.blogText}>
                             <ReactMarkdown source={(this.props.shortened) ? this.props.details.substring(0, 240) : this.props.details} />
@@ -94,25 +105,30 @@ class BlogPost extends Component {
                             <div style={{ display: 'flex' }}>
                                 <div style={{ marginRight: 8 }}>
                                     {this.state.isLiked ?
-                                        <FaHeart style={{ ...iconStyle, ...iconStyleColor }}></FaHeart>:
-                                        <FaRegHeart onClick={this.handleLike} style={{ ...iconStyle, ...iconStyleColor }}></FaRegHeart>
+                                        <FaHeart style={{ ...iconStyle, ...iconStyleColorHeart, }}></FaHeart> :
+                                        <FaRegHeart onClick={this.handleLike} style={{ ...iconStyle, ...iconStyleColorHeart }}></FaRegHeart>
 
                                     }
                                     {this.state.likes}
                                 </div>
-                                <div style={{ marginLeft: 8, flexGrow: 1, width: '25%', }}>
-                                    <FaShare style={{ ...iconStyle, ...iconStyleColor }}>
-                                    </FaShare>
-                                    15
-                                </div>
+                                <FacebookShareButton
+                                    quote={'Read ' + this.props.slug + ', an article by Furkan Aydar'}
+                                    children={facebookShareButton} url='google.com'>
+                                </FacebookShareButton>
+                                <TwitterShareButton title={'Read the article: ' + this.props.slug}
+                                    via='furkanaydar.com'
+                                    hashtags={tags}
+                                    children={twitterShareButton} url='google.com'></TwitterShareButton>
+
                             </div>
-                            <div style={{ width: '50%', flexGrow: 1 }} className='blog-date'>
+                            <div style={{ flexGrow: 1 }} className='blog-date'>
                                 <TiCalendarOutline style={iconStyle}>
                                 </TiCalendarOutline>
-                                {this.props.date}
+                                {this.props.date.substring(0, 10)}
                             </div>
                         </div>
                     </div>
+
                 </div>
             </Fade>
 

@@ -34,7 +34,7 @@ class Tab extends Component {
                 `}</style>
                 <button className='tab' onClick={() => this.props.handleTabChange(this.props.tabId)} style={tabStyle}>
 
-                    <a style={{ padding: 0, verticalAlign: 'middle', marginRight: 8 }}>{icon}</a>
+                    <a style={{ padding: 0, marginRight: 8 }}>{icon}</a>
                     {this.props.tabText}
                 </button>
             </div>

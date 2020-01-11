@@ -34,7 +34,7 @@ class Home extends React.Component {
       <div style={Styles.blogPostsContainer}>
         {posts.map(post => (
           <BlogPost likes={post.likes} shortened={true} key={post.id} slug={post.slug} 
-              title={post.title} details={post.details} date={post.date}>
+              postImg={post.img_url} title={post.title} details={post.details} date={post.date}>
           </BlogPost>
         ))}
       </div>
@@ -44,10 +44,13 @@ class Home extends React.Component {
         <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Crimson+Text&display=swap" rel="stylesheet"/>
 
         <Head>
           <title>Home</title>
           <link rel="icon" href="/favicon.ico" />
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+
         </Head>
         <Header></Header>
         <section style={Styles.tabsSection}>
