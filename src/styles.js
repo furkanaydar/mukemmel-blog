@@ -91,7 +91,6 @@ const Styles = {
     marginTop: 32,
     justifyContent: 'space-between',
     display: 'flex',
-    marginBottom: 32,
     width: '72%'
   },
   tab: {
