@@ -12,6 +12,7 @@ import { FaAngleDown, FaAngleUp, } from 'react-icons/fa'
 import { FiPlusCircle } from 'react-icons/fi'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
+import Paginator from '../components/paginator'
 
 
 class CurrentPost extends React.Component {
@@ -21,7 +22,8 @@ class CurrentPost extends React.Component {
       postLikes: 0,
       showComments: false,
       showCommentForm: false,
-      comments: []
+      comments: [],
+      activePage: 1
     }
     this.makeComment = React.createRef()
     this.commentSection = React.createRef()
@@ -33,6 +35,7 @@ class CurrentPost extends React.Component {
     this.scrollToPost = this.scrollToPost.bind(this);
     this.postComment = this.postComment.bind(this)
     this.pageReload = this.pageReload.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
   pageReload() {
@@ -88,13 +91,21 @@ class CurrentPost extends React.Component {
   componentDidMount() {
     this.setState({
       comments: this.props.comments
+
     })
   }
+  handlePageChange(pageNumber) {
+    this.setState({
+      activePage: parseInt(pageNumber)
+    })
+  }
+
   render() {
     const postInfo = this.props.post
     const comments = this.state.comments
     const showComments = 'SHOW COMMENTS (' + comments.length + ')'
     const hideComments = 'HIDE COMMENTS (' + comments.length + ')'
+
     return (
       <div style={Styles.container}>
         <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
@@ -120,6 +131,10 @@ class CurrentPost extends React.Component {
               text-decoration:underline;
               cursor: pointer;
             }
+            .prev {
+              color:red;
+            }
+            
           `}</style>
           <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
             <BlogPost handleLike={this.handleLike} shortened={false} key={postInfo.id} likes={postInfo.likes}
@@ -148,10 +163,15 @@ class CurrentPost extends React.Component {
             this.state.showComments ?
               <Fade big>
                 <div id='commentSection'>
+                  <Paginator displayedPageRange={6} pageRange={Math.ceil(this.state.comments.length / 5)}
+                    handlePageChange={this.handlePageChange} activePage={this.state.activePage}>
+
+                  </Paginator>
                   {
-                    this.state.comments.map((comment) => <CommentBox details={comment.details}
+                    this.state.comments.slice((this.state.activePage - 1) * 5, Math.min(this.state.comments.length, this.state.activePage * 5)).map((comment) => <CommentBox details={comment.details}
                       date={comment.date} owner={comment.owner}></CommentBox>)
                   }
+
                 </div>
                 <div onClick={this.handleCommentFormShow}
                   className='add-comment'

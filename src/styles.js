@@ -156,7 +156,7 @@ const Styles = {
     marginTop: 20,
     borderRadius: 12,
     width: '72%',
-    backgroundColor: '#e1e8f0',
+    backgroundColor: 'whitesmoke',
     fontWeight: 'lighter',
     border: 'none',
 
