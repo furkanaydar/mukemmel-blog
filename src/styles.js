@@ -16,7 +16,7 @@ const Styles = {
   container: {
     maxWidth: 1000,
     margin: '0 auto',
-
+    
   },
   blogPostsContainer: {
     margin: '0 auto',
@@ -144,6 +144,23 @@ const Styles = {
     height: '100%',
     borderRadius: '200px',
     margin: 'auto'
+  },
+  commentBox: {
+    fontFamily: 'Domine, "Times New Roman", Times, serif',
+    fontSize: 16,
+    fontWeight: 'lighter',
+    padding: 12,
+    marginBottom: 32,
+    paddingBottom:32,
+    margin: '0 auto',
+    marginTop: 20,
+    borderRadius: 12,
+    width: '72%',
+    backgroundColor: '#e1e8f0',
+    fontWeight: 'lighter',
+    border: 'none',
+
+
   }
 }
 export default Styles

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Styles from '../src/styles'
 
-import { FaRegHeart, FaCommentAlt, FaHeart, FaFacebook, FaTwitter } from 'react-icons/fa'
+import { FaRegHeart, FaCommentAlt, FaHeart, FaFacebook, FaTwitter, } from 'react-icons/fa'
 import { TiCalendarOutline } from 'react-icons/ti'
 
 import Tag from '../components/tag'
@@ -112,10 +112,10 @@ class BlogPost extends Component {
                                     {this.state.likes}
                                 </div>
                                 <FacebookShareButton
-                                    quote={'Read ' + this.props.slug + ', an article by Furkan Aydar'}
+                                    quote={'Read ' + this.props.title + ', an article by Furkan Aydar'}
                                     children={facebookShareButton} url='google.com'>
                                 </FacebookShareButton>
-                                <TwitterShareButton title={'Read the article: ' + this.props.slug}
+                                <TwitterShareButton title={'Read the article: ' + this.props.title}
                                     via='furkanaydar.com'
                                     hashtags={tags}
                                     children={twitterShareButton} url='google.com'></TwitterShareButton>
