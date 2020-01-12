@@ -3,6 +3,7 @@ import Styles from '../src/styles'
 import { TiCalendarOutline } from 'react-icons/ti'
 import { FiUser } from 'react-icons/fi'
 import ReactMarkdown from 'react-markdown';
+import Fade from 'react-reveal/Fade';
 
 class CommentBox extends Component {
     constructor() {
@@ -26,7 +27,7 @@ class CommentBox extends Component {
                         <a style={{ verticalAlign: 'middle', marginRight: 8, }}>
                             <TiCalendarOutline></TiCalendarOutline>
                         </a>
-                        {this.props.date.substring(0,10)}
+                        {this.props.date.substring(0, 10)}
                     </div>
                 </div>
                 <div style={{ padding: 22, fontWeight: 'bolder' }}>

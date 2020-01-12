@@ -25,7 +25,7 @@ class Paginator extends Component {
         const listItemStyle = {
             fontFamily: 'PT Sans, serif',
             userSelect: 'none',
-            marginRight: 5,
+            margin: 5,
             fontSize: 14,
             border: 'none',
             padding: 2,

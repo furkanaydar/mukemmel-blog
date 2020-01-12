@@ -12,7 +12,6 @@ import { FaAngleDown, FaAngleUp, } from 'react-icons/fa'
 import { FiPlusCircle } from 'react-icons/fi'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
-import Paginator from '../components/paginator'
 
 
 class CurrentPost extends React.Component {
@@ -23,7 +22,7 @@ class CurrentPost extends React.Component {
       showComments: false,
       showCommentForm: false,
       comments: [],
-      activePage: 1
+      activeBorder: 5
     }
     this.makeComment = React.createRef()
     this.commentSection = React.createRef()
@@ -35,7 +34,7 @@ class CurrentPost extends React.Component {
     this.scrollToPost = this.scrollToPost.bind(this);
     this.postComment = this.postComment.bind(this)
     this.pageReload = this.pageReload.bind(this);
-    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleExpand = this.handleExpand.bind(this)
   }
 
   pageReload() {
@@ -66,8 +65,12 @@ class CurrentPost extends React.Component {
       showComments: !showComments,
       showCommentForm: showCommentForm
     })
-    if (showComments)
+    if (showComments) {
+      this.setState({
+        activeBorder: 5
+      })
       this.scrollToPost();
+    }
   }
   scrollToPost = () => {
     this.post.scrollIntoView({ behavior: "smooth" });
@@ -94,9 +97,11 @@ class CurrentPost extends React.Component {
 
     })
   }
-  handlePageChange(pageNumber) {
+  handleExpand() {
+    let activeBorder = this.state.activeBorder
+    let newBorder = activeBorder == this.state.comments.length ? 5 : Math.min(activeBorder + 5, this.state.comments.length)
     this.setState({
-      activePage: parseInt(pageNumber)
+      activeBorder: newBorder
     })
   }
 
@@ -134,6 +139,20 @@ class CurrentPost extends React.Component {
             .prev {
               color:red;
             }
+            .submit-button {
+              cursor: pointer;
+              background:none;
+              transition: 0.2s;
+              color:#001f3f;
+          }
+          .submit-button:hover {
+              background-color:#001f3f;
+              color: white;
+          }
+          .submit-button {
+              outline: none;
+              border: none;
+          }
             
           `}</style>
           <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
@@ -163,16 +182,30 @@ class CurrentPost extends React.Component {
             this.state.showComments ?
               <Fade big>
                 <div id='commentSection'>
-                  <Paginator displayedPageRange={6} pageRange={Math.ceil(this.state.comments.length / 5)}
-                    handlePageChange={this.handlePageChange} activePage={this.state.activePage}>
-
-                  </Paginator>
                   {
-                    this.state.comments.slice((this.state.activePage - 1) * 5, Math.min(this.state.comments.length, this.state.activePage * 5)).map((comment) => <CommentBox details={comment.details}
+                    this.state.comments.slice(0, this.state.activeBorder).map((comment) => <CommentBox details={comment.details}
                       date={comment.date} owner={comment.owner}></CommentBox>)
                   }
-
                 </div>
+                <div style={{ textAlign: 'center' }}>
+                  <button
+                    onClick={this.handleExpand}
+                    className='submit-button'
+                    style={{
+                      marginTop: 32,
+                      width: '16%',
+                      letterSpacing: 3,
+                      fontWeight: 'bolder',
+                      padding: 4,
+                      borderRadius: 6,
+                      fontSize: 12,
+                      border: '1px solid #001f3f',
+                      fontFamily: 'PT Sans, serif',
+                    }}>
+                    {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
+                  </button>
+                </div>
+
                 <div onClick={this.handleCommentFormShow}
                   className='add-comment'
                   id='makeCommentSection' style={{ fontFamily: 'PT Sans, serif', width: '72%', margin: 'auto', marginTop: 20, textAlign: 'left' }}>

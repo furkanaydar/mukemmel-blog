@@ -154,11 +154,12 @@ const Styles = {
     paddingBottom:32,
     margin: '0 auto',
     marginTop: 20,
-    borderRadius: 12,
-    width: '72%',
+    borderRadius: 8,
+    width: '64%',
     backgroundColor: 'whitesmoke',
     fontWeight: 'lighter',
     border: 'none',
+    boxShadow: '0 2px 3px 0px rgba(0, 0, 0, 0.16)'
 
 
   }
