@@ -6,10 +6,10 @@ import ReactMarkdown from "react-markdown";
 import Header from '../components/header'
 import Styles from '../src/styles'
 import BlogPost from '../components/blogPost'
-import { MdChatBubbleOutline, MdKeyboardBackspace } from 'react-icons/md'
+import { MdChatBubbleOutline, MdKeyboardBackspace, MdHome } from 'react-icons/md'
 import CommentBox from '../components/commentBox'
 import { FaAngleDown, FaAngleUp, } from 'react-icons/fa'
-import { FiPlusCircle } from 'react-icons/fi'
+import { FiPlusCircle, FiArrowLeftCircle } from 'react-icons/fi'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
 
@@ -19,7 +19,7 @@ class CurrentPost extends React.Component {
     super();
     this.state = {
       postLikes: 0,
-      showComments: false,
+      showComments: true,
       showCommentForm: false,
       comments: [],
       activeBorder: 5
@@ -52,8 +52,9 @@ class CurrentPost extends React.Component {
       body: JSON.stringify(data)
     };
     window.location.reload()
-
+    this.scrollToCommentSection();
     await fetch(`http://localhost:3000/api/post/` + this.props.post.id + '/makeComment', settings);
+
   }
 
   handleShowComments() {
@@ -63,38 +64,37 @@ class CurrentPost extends React.Component {
       showCommentForm = !showCommentForm
     this.setState({
       showComments: !showComments,
-      showCommentForm: showCommentForm
     })
     if (showComments) {
       this.setState({
-        activeBorder: 5
+        activeBorder: 5,
+        showCommentForm: false
       })
       this.scrollToPost();
     }
+
   }
   scrollToPost = () => {
     this.post.scrollIntoView({ behavior: "smooth" });
   }
   scrollToMakeComment = () => {
-    this.makeComment.scrollIntoView({ behavior: "smooth" });
+    this.makeComment.scrollIntoView({ behavior: "smooth", });
   }
   scrollToCommentSection = () => {
     this.commentSection.scrollIntoView({ behavior: "smooth" });
   }
   handleCommentFormShow() {
     let showCommentForm = this.state.showCommentForm
+
     this.setState({
-      showCommentForm: !showCommentForm
+      showCommentForm: !showCommentForm,
     })
-    if (!showCommentForm)
-      this.scrollToMakeComment();
-    else
-      this.scrollToCommentSection();
+    this.scrollToMakeComment();
+
   }
   componentDidMount() {
     this.setState({
-      comments: this.props.comments
-
+      comments: this.props.comments.reverse()
     })
   }
   handleExpand() {
@@ -153,6 +153,13 @@ class CurrentPost extends React.Component {
               outline: none;
               border: none;
           }
+          .back-icon {
+            background-color: none;
+            color: red;
+          }
+          .back-icon:hover {
+            background-color: lightblue;
+          }
             
           `}</style>
           <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
@@ -166,6 +173,7 @@ class CurrentPost extends React.Component {
             fontFamily: 'PT Sans, serif', letterSpacing: 3,
             width: '48%', margin: '0 auto', textAlign: 'center', marginTop: 20
           }}>
+
             <a style={{ verticalAlign: 'middle', marginRight: 12 }}>
               <MdChatBubbleOutline></MdChatBubbleOutline>
             </a>
@@ -206,23 +214,24 @@ class CurrentPost extends React.Component {
                   </button>
                 </div>
 
-                <div onClick={this.handleCommentFormShow}
-                  className='add-comment'
-                  id='makeCommentSection' style={{ fontFamily: 'PT Sans, serif', width: '72%', margin: 'auto', marginTop: 20, textAlign: 'left' }}>
-                  <a style={{ fontSize: 28, letterSpacing: 3, }}>
-                    <FiPlusCircle style={{ marginRight: 8, verticalAlign: 'middle' }}></FiPlusCircle>
-                  </a>
-                  COMMENT
-               </div>
-                <div  >
 
-                  <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
-                </div>
               </Fade> :
               null
           }
-          <div id='dummyDivForScroll' style={{ marginTop: 480, float: "left", clear: "both" }}
-            ref={(el) => { this.makeComment = el; }}>
+          <div onClick={this.handleCommentFormShow}
+            className='add-comment'
+            id='makeCommentSection' style={{ fontFamily: 'PT Sans, serif', width: '72%', margin: 'auto', textAlign:'center', marginTop: 20 }}>
+            <a style={{ fontSize: 28, letterSpacing: 3, }}>
+              <FiPlusCircle style={{ marginRight: 8, verticalAlign: 'middle' }}></FiPlusCircle>
+            </a>
+            COMMENT
+          </div>
+          <div  >
+
+            <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
+          </div>
+          <div  ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll' style={{ marginTop: 720, float: "left", clear: "both" }}
+            >
           </div>
         </div>
       </div>

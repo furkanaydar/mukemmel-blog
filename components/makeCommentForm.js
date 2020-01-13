@@ -90,7 +90,7 @@ class MakeCommentForm extends Component {
                                 className='submit-button'
                                 style={{
                                     marginTop: 32,
-                                    width: '20%',
+                                    width: '25%',
                                     letterSpacing: 3,
                                     fontWeight: 'bolder',
                                     padding: 4,

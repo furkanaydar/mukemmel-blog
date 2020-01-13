@@ -160,8 +160,30 @@ const Styles = {
     fontWeight: 'lighter',
     border: 'none',
     boxShadow: '0 2px 3px 0px rgba(0, 0, 0, 0.16)'
+  },
 
+  sortSection: {
+    borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+    margin: 'auto',
+    marginTop: 12,
+    justifyContent: 'space-between',
+    display: 'flex',
+    width: '70%',
+    padding:10,
+  },
 
+  searchBarContainer: {
+    width:'50%',
+  },
+  searchBar: {
+    width:'60%',
+    letterSpacing: 1.4,
+    borderRadius:12,
+    border: '1px solid rgba(0, 0, 0, 0.16)',
+    padding:8,
+    paddingLeft:10,
+    fontFamily: 'PT Sans, serif',
   }
 }
 export default Styles

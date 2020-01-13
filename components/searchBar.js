@@ -1,32 +1,58 @@
 import React, { Component } from 'react'
-import { FaSearch } from 'react-icons/fa'
+
+import Fade from 'react-reveal/Fade';
+
+import Styles from '../src/styles'
+
+import { GoSearch } from 'react-icons/go'
 
 class SearchBar extends Component {
     constructor() {
         super();
         this.state = {
-            focused: false
+            searchQuery: ''
         }
-        this.handleSearchFocus = this.handleSearchFocus.bind(this)
+        this.handleForm = this.handleForm.bind(this)
     }
+    handleForm(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
 
-    handleSearchFocus() {
-        let focused = this.state.focused
         this.setState({
-            focused: !focused
-        })
+            [name]: value
+        });
     }
     render() {
         return (
-            <div>
+            <div style={Styles.searchBarContainer}>
                 <style jsx>{`
+                    .search-bar {
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                    .search-text {
+                        font-family: PT Sans, serif;
+                    }
+                    .search-text:focus {
+                        outline: none;
+                        border: none;
+                    }
 
-
+                    
                 `}</style>
-
+                <div style={Styles.searchBar}>
+                    <input name='searchQuery' value={this.state.searchQuery}
+                        onChange={this.handleForm}
+                        className='search-text' style={{ marginLeft: 4, width: '80%', border: 'none' }} type='text'>
+                    </input>
+                    <a onClick={() => this.props.handleSearchQuery(this.state.searchQuery)}
+                        style={{ width: '10%', verticalAlign: 'middle', cursor: 'pointer', float: 'right', paddingRight: 2, paddingTop: 4 }}>
+                        <GoSearch></GoSearch>
+                    </a>
+                </div>
             </div>
         )
     }
 }
-
 export default SearchBar
