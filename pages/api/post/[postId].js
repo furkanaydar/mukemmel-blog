@@ -7,5 +7,6 @@ export default async (req, res) => {
   FROM posts
   WHERE slug = ${req.query.postId}
 `)
+  res.statusCode = 200
   res.json({ post: post })
 };

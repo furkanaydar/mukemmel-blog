@@ -174,10 +174,10 @@ const Styles = {
   },
 
   searchBarContainer: {
-    width:'50%',
+    width:'30%',
   },
   searchBar: {
-    width:'60%',
+    width:'80%',
     letterSpacing: 1.4,
     borderRadius:12,
     border: '1px solid rgba(0, 0, 0, 0.16)',

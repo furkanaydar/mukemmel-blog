@@ -6,6 +6,12 @@ module.exports = async (req, res) => {
   const postsList = await db.query(escape`
       SELECT *
       FROM posts
+      WHERE type = 0
     `)
-  res.status(200).json({ posts: postsList})
+  const projectsList = await db.query(escape`
+    SELECT *
+    FROM posts
+    WHERE type = 1
+  `)
+  res.status(200).json({ posts: postsList, projects: projectsList })
 }

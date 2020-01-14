@@ -12,13 +12,19 @@ import AboutMe from "../components/aboutMe";
 import Paginator from '../components/paginator'
 import SearchBar from '../components/searchbar'
 
+import { MdSmsFailed, MdClear } from 'react-icons/md'
+import Fade from 'react-reveal/Fade';
+
+
 class Home extends React.Component {
   constructor() {
     super();
     this.state = {
       activeTab: 0,
       activePage: 1,
-      posts: []
+      posts: [],
+      projects: [], 
+      searchQuery: '',
     }
     this.header = React.createRef()
     this.handleTabChange = this.handleTabChange.bind(this)
@@ -30,8 +36,10 @@ class Home extends React.Component {
     this.header.scrollIntoView({ behavior: "smooth" });
   }
   handleTabChange(tabId) {
+    this.handleSearchQuery('')
     this.setState({
-      activeTab: tabId
+      activeTab: parseInt(tabId),
+      activePage: 1,
     })
   }
   handlePageChange(newPage) {
@@ -41,22 +49,32 @@ class Home extends React.Component {
     this.scrollToHeader();
   }
   async handleSearchQuery(searchQuery) {
-    const res = await fetch("http://localhost:3000/api/post/search/" + searchQuery);
+    let endpoint = "http://localhost:3000/api/posts"
+    if (searchQuery.length > 0)
+      endpoint = "http://localhost:3000/api/post/search/" + searchQuery
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({type: this.state.activeTab})
+    });
     const json = await res.json();
-    console.log(json)
     this.setState({
-      posts: json.post
+      posts: (searchQuery.length > 0) ? json.post : json.posts,
+      searchQuery: searchQuery
     })
   }
 
   componentDidMount() {
     this.setState({
-      posts : this.props.posts
+      posts: this.props.posts,
+      projects : this.props.projects,
     })
   }
   render() {
-
-    let posts = this.state.posts
+    let posts = this.state.activeTab == 0 ? this.state.posts : this.state.projects
     let blogPosts =
 
       <div style={Styles.blogPostsContainer}>
@@ -66,7 +84,7 @@ class Home extends React.Component {
           </BlogPost>
         ))}
       </div>
-    let displayContent = (this.state.activeTab == 0) ? blogPosts : <AboutMe></AboutMe>
+    let displayContent = (this.state.activeTab != 2) ? blogPosts : <AboutMe></AboutMe>
     return (
       <div ref={(el) => { this.header = el; }} style={Styles.container}>
         <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
@@ -80,30 +98,72 @@ class Home extends React.Component {
 
         </Head>
         <Header></Header>
-        
         <section style={Styles.tabsSection}>
           <Tab handleTabChange={this.handleTabChange} tabId='0' tabText='POSTS' isActive={this.state.activeTab == 0}></Tab>
           <Tab handleTabChange={this.handleTabChange} tabId='1' tabText='MY PROJECTS' isActive={this.state.activeTab == 1}></Tab>
           <Tab handleTabChange={this.handleTabChange} tabId='2' tabText='ABOUT ME' isActive={this.state.activeTab == 2}></Tab>
         </section>
+
         {
           this.state.activeTab != 2 ?
 
             <section className='dropdown' style={{ display: 'flex', width: '90%', margin: 'auto', marginTop: 32, }}>
-              <SearchBar handleSearchQuery = {this.handleSearchQuery}></SearchBar>
+              <SearchBar activeTab={this.state.activeTab} handleSearchQuery={this.handleSearchQuery}></SearchBar>
+
               <selection style={{ width: '50%', textAlign: 'right', padding: 8 }}>
               </selection>
             </section>
             :
             null
         }
-        <div id='main' style={{ width: '100%', }}>
+        {
+          this.state.searchQuery.length > 0 ?
+            <Fade big>
+              <div style={{
+                width: '88%', margin: 'auto', textAlign: 'left',
+                marginTop: 12, fontFamily: 'PT Sans, serif', fontSize: 13,
+              }}>
+                <a onClick={() => this.handleSearchQuery('')}
+                  style={{ cursor: 'pointer', verticalAlign: 'middle', marginRight: 3, }}>
+                  <MdClear></MdClear>
+                </a>
+                Showing results for:
+                <em>  {this.state.searchQuery}</em>
 
-          {displayContent}
+              </div>
+            </Fade>
+            :
+            null
+        }
+        {this.state.activeTab != 2 ?
+          <div
+            style={{ margin: 'auto', marginTop: 18,  width: '90%', borderBottom: '1px solid rgba(0, 0, 0, 0.1)' }}>
+          </div> : null
+        }
+        <div id='main' style={{ width: '100%', }}>
+          {this.state.posts.length > 0 ?
+            displayContent :
+            <div style={{
+              margin: 'auto', textAlign: 'center', marginTop: 48,
+              fontFamily: 'PT Sans, serif', letterSpacing: 2, fontSize: 20, fontWeight: 'lighter'
+            }}>
+              <a style={{ fontSize: 32 }}>
+                <MdSmsFailed></MdSmsFailed>
+              </a>
+              <div>
+                No posts found.
+              </div>
+              <div style={{ marginTop: 20, }}>
+                <a style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => this.handleSearchQuery('')}>
+                  HOME
+                </a>
+              </div>
+            </div>
+          }
         </div>
 
         {
-          this.state.activeTab == 0 ?
+          this.state.activeTab != 2 && this.state.posts.length > 0 ?
             <Paginator handlePageChange={this.handlePageChange} displayedPageRange={5}
               activePage={this.state.activePage} pageRange={Math.ceil(posts.length / 3)}>
             </Paginator> : null
@@ -118,9 +178,8 @@ class Home extends React.Component {
 Home.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const res = await fetch("http://localhost:3000/api/posts");
-
   const json = await res.json();
-  return { posts: json.posts };
+  return { posts: json.posts, projects: json.projects};
 };
 
 export default Home;

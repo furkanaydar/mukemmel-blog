@@ -88,10 +88,13 @@ class BlogPost extends Component {
                             <Tag key='3' tagText='Popular'></Tag>
                             <Tag key='4' tagText='Trick'></Tag>
                         </div>
-                        <div style={{ margin: 'auto' }}>
-                            <img src={this.props.postImg}
-                                style={Styles.blogImage} alt="Girl in a jacket" />
-                        </div>
+                        {
+                            this.props.postImg ?
+                            <div style={{ margin: 'auto' }}>
+                                <img src={this.props.postImg}
+                                    style={Styles.blogImage} alt="Girl in a jacket" />
+                            </div> : null
+                        }
                         <h1 style={{ marginTop: 24, marginBottom: 36, }}>
                             <Link href={this.props.slug}>
                                 <a style={Styles.blogTitle}>{this.props.title}</a>
