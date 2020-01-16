@@ -195,6 +195,7 @@ class CurrentPost extends React.Component {
                       date={comment.date} owner={comment.owner}></CommentBox>)
                   }
                 </div>
+                
                 <div style={{ textAlign: 'center' }}>
                   <button
                     onClick={this.handleExpand}
@@ -230,7 +231,8 @@ class CurrentPost extends React.Component {
 
             <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
           </div>
-          <div  ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll' style={{ marginTop: 720, float: "left", clear: "both" }}
+          <div  ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll' 
+          style={{ marginTop: 720, float: "left", clear: "both" }}
             >
           </div>
         </div>
