@@ -6,12 +6,13 @@ import ReactMarkdown from "react-markdown";
 import Header from '../components/header'
 import Styles from '../src/styles'
 import BlogPost from '../components/blogPost'
-import { MdChatBubbleOutline, MdKeyboardBackspace, MdHome } from 'react-icons/md'
+import { MdChatBubbleOutline, MdKeyboardBackspace, MdHome, } from 'react-icons/md'
 import CommentBox from '../components/commentBox'
 import { FaAngleDown, FaAngleUp, } from 'react-icons/fa'
 import { FiPlusCircle, FiArrowLeftCircle } from 'react-icons/fi'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
+import Router from 'next/router'
 
 
 class CurrentPost extends React.Component {
@@ -162,12 +163,36 @@ class CurrentPost extends React.Component {
           }
             
           `}</style>
+
           <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
-            <BlogPost handleLike={this.handleLike} shortened={false} key={postInfo.id} likes={postInfo.likes}
+            <div style={{ width: '90%', margin: 'auto', textAlign: 'left', }}>
+              <button
+                onClick={() => Router.back()}
+                className='submit-button'
+                style={{
+                  marginTop: 32,
+                  width: '18%',
+                  letterSpacing: 3,
+                  fontWeight: 'bolder',
+                  padding: 4,
+                  borderRadius: 6,
+                  fontSize: 12,
+                  border: '1px solid #001f3f',
+                  fontFamily: 'PT Sans, serif',
+                }}>
+                <MdKeyboardBackspace style={{ marginRight: 10, verticalAlign: 'middle' }}></MdKeyboardBackspace>
+                {'Home'}
+              </button>
+            </div>
+            <BlogPost
+              handleLike={this.handleLike} shortened={false}
+              key={postInfo.id} likes={postInfo.likes}
               postImg={postInfo.img_url}
-              slug={postInfo.slug} title={postInfo.title} details={postInfo.details} date={postInfo.date}>
+              slug={postInfo.slug} title={postInfo.title}
+              details={postInfo.details} date={postInfo.date}>
             </BlogPost>
           </div>
+
           <div ref={(el) => { this.commentSection = el; }} onClick={this.handleShowComments} className='view-comments' style={{
             padding: 6, borderRadius: 8,
             fontFamily: 'PT Sans, serif', letterSpacing: 3,
@@ -195,7 +220,7 @@ class CurrentPost extends React.Component {
                       date={comment.date} owner={comment.owner}></CommentBox>)
                   }
                 </div>
-                
+
                 <div style={{ textAlign: 'center' }}>
                   <button
                     onClick={this.handleExpand}
@@ -221,7 +246,7 @@ class CurrentPost extends React.Component {
           }
           <div onClick={this.handleCommentFormShow}
             className='add-comment'
-            id='makeCommentSection' style={{ fontFamily: 'PT Sans, serif', width: '72%', margin: 'auto', textAlign:'center', marginTop: 20 }}>
+            id='makeCommentSection' style={{ fontFamily: 'PT Sans, serif', width: '72%', margin: 'auto', textAlign: 'center', marginTop: 20 }}>
             <a style={{ fontSize: 28, letterSpacing: 3, }}>
               <FiPlusCircle style={{ marginRight: 8, verticalAlign: 'middle' }}></FiPlusCircle>
             </a>
@@ -231,9 +256,9 @@ class CurrentPost extends React.Component {
 
             <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
           </div>
-          <div  ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll' 
-          style={{ marginTop: 720, float: "left", clear: "both" }}
-            >
+          <div ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll'
+            style={{ marginTop: 720, float: "left", clear: "both" }}
+          >
           </div>
         </div>
       </div>

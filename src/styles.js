@@ -16,7 +16,7 @@ const Styles = {
   container: {
     maxWidth: 1000,
     margin: '0 auto',
-    
+
   },
   blogPostsContainer: {
     margin: '0 auto',
@@ -151,7 +151,7 @@ const Styles = {
     fontWeight: 'lighter',
     padding: 12,
     marginBottom: 32,
-    paddingBottom:32,
+    paddingBottom: 32,
     margin: '0 auto',
     marginTop: 20,
     borderRadius: 8,
@@ -170,20 +170,98 @@ const Styles = {
     justifyContent: 'space-between',
     display: 'flex',
     width: '70%',
-    padding:10,
+    padding: 10,
   },
 
   searchBarContainer: {
-    width:'30%',
+    width: '50%',
   },
   searchBar: {
-    width:'80%',
+    width: '80%',
     letterSpacing: 1.4,
-    borderRadius:12,
+    borderRadius: 12,
     border: '1px solid rgba(0, 0, 0, 0.16)',
-    padding:8,
-    paddingLeft:10,
+    padding: 8,
+    paddingLeft: 10,
     fontFamily: 'PT Sans, serif',
+  },
+  dropdownContainer: {
+    width:'20%',
+    cursor: 'pointer',
+  },
+  dropdown: {
+    letterSpacing: 1.4,
+    borderRadius: 12,
+    border: '1px solid rgba(0, 0, 0, 0.16)',
+    textAlign: 'center',
+    padding: 4,
+    paddingRight: 6,
+    paddingLeft: 6,
+    fontSize:14,
+    color: 'grey',
+    fontFamily: 'PT Sans, serif',
+  },
+
+  adminLoginContainer: {
+    boxShadow: '0 2px 3px 0px rgba(0, 0, 0, 0.16)',
+    border: '1px solid rgba(0, 0, 0, 0.16)',
+    margin: 'auto', 
+    width: '30%', 
+    padding: 32, 
+    textAlign: 'center', 
+    marginTop: '10%'
+  },
+
+  inputField: {
+    width: '80%',
+    backgroundColor: 'whitesmoke', borderRadius: 8,
+    border: 'none', boxShadow: 'none', outline: 'none',
+    padding: 12,
+    marginBottom: 20,
+  },
+
+  adminButtonStyle: {
+    marginTop: 32,
+    width: '25%',
+    letterSpacing: 3,
+    cursor: 'pointer',
+    padding: 8,
+    borderRadius: 6,
+    fontSize: 11,
+    marginRight:12,
+    fontFamily: 'Tahoma, serif',
+    border: '2px solid #001f3f',
+    background: 'white',
+  },
+
+  createArticleContainer: {
+    boxShadow: '0 2px 3px 0px rgba(0, 0, 0, 0.16)',
+    border: '1px solid rgba(0, 0, 0, 0.16)',
+    margin: 'auto', 
+    width: '50%', 
+    padding: 32, 
+    textAlign: 'center', 
+    backgroundColor: 'whitesmoke',
+  },
+  createArticleTextArea: {
+    minWidth: '72%',
+    maxWidth: '72%',
+    minHeight: 300,
+    border: '3px solid #cccccc',
+    padding: 5,
+    fontFamily: 'Tahoma, sans-serif',
+  },
+  tagInput: {
+    backgroundColor: '#cde69c',
+    borderRadius: 2,
+    border: '1px solid #a5d24a',
+    color: '#638421',
+    display: 'inline-block',
+    fontSize: 13,
+    fontWeight: 400,
+    marginBottom: 5,
+    marginRight: 5,
+    padding: 5
   }
 }
 export default Styles

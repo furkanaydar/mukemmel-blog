@@ -12,7 +12,7 @@ import AboutMe from "../components/aboutMe";
 import Paginator from '../components/paginator'
 import SearchBar from '../components/searchbar'
 
-import { MdSmsFailed, MdClear } from 'react-icons/md'
+import { MdClear, MdArrowDropDown } from 'react-icons/md'
 import Fade from 'react-reveal/Fade';
 
 import { sortByChoice } from '../lib/comparators'
@@ -29,7 +29,9 @@ class Home extends React.Component {
       projects: [],
       searchQuery: '',
       searching: false,
-      sortBy: 2, // 0 = newest, 1 = oldest, 2 = most liked
+      dropdownActive: false,
+      isAdmin: false,
+      sortBy: 0, // 0 = newest, 1 = oldest, 2 = most liked
     }
     this.header = React.createRef()
     this.handleTabChange = this.handleTabChange.bind(this)
@@ -96,20 +98,25 @@ class Home extends React.Component {
   componentDidMount() {
     let posts = this.props.posts
     let projects = this.props.projects
+    let isAdmin = true
     console.log(projects)
     this.setState({
       posts: posts,
-      projects: projects
+      projects: projects,
+      isAdmin: isAdmin
     })
   }
   render() {
+    let dropdownState = this.state.dropdownActive
+    let dropdownStateClass = dropdownState ? 'dropdown-content-display' : 'dropdown-content'
+    let sortState = this.state.sortBy == 0 ? 'Recent' : this.state.sortBy == 1 ? 'oldest' : 'Likes'
     let posts = this.state.activeTab == 0 ? this.state.posts : this.state.projects
     posts = sortByChoice(posts, this.state.sortBy)
     let blogPosts =
 
       <div style={Styles.blogPostsContainer}>
         {posts.slice((this.state.activePage - 1) * 3, this.state.activePage * 3).map(post => (
-          <BlogPost likes={post.likes} shortened={true} key={post.id} slug={post.slug}
+          <BlogPost type={this.state.activeTab} likes={post.likes} shortened={true} key={post.id} slug={post.slug}
             postImg={post.img_url} title={post.title} details={post.details} date={post.date}>
           </BlogPost>
         ))}
@@ -117,6 +124,35 @@ class Home extends React.Component {
     let displayContent = (this.state.activeTab != 2) ? blogPosts : <AboutMe></AboutMe>
     return (
       <div ref={(el) => { this.header = el; }} style={Styles.container}>
+        {
+          this.state.isAdmin ? 'ADMIN' : 'NOTADMIN'
+        }
+        <style jsx>{`
+          .dropdown-content {
+            display: none;
+          }
+          .dropdown-content-display a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
+          .dropdown-content-display {
+            display: block;
+            position: absolute;
+            margin-top: 8px;
+            background-color: #f9f9f9;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+          .dropdown-content-display a:hover {
+            background-color: whitesmoke;
+
+
+          }
+        `}</style>
+
         <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
@@ -136,11 +172,29 @@ class Home extends React.Component {
         {
           this.state.activeTab != 2 ?
 
-            <section className='dropdown' style={{ display: 'flex', width: '90%', margin: 'auto', marginTop: 32, }}>
+            <section style={{
+              display: 'flex',
+              width: '90%', margin: 'auto', marginTop: 32, paddingTop:20, marginBottom:12,  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+            }}>
               <SearchBar activeTab={this.state.activeTab} handleSearchQuery={this.handleSearchQuery}></SearchBar>
+              <div style={{width:'30%'}}></div>
+              <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
+                style={Styles.dropdownContainer}>
+                <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>
+                  {'Sort by: ' + sortState}
+                  <MdArrowDropDown
+                    style={{
+                      marginLeft: 12, verticalAlign: 'middle',
+                      fontSize: 22,
+                    }}>
+                  </MdArrowDropDown>
+                  <div style={{ cursor: 'pointer' }} className={dropdownStateClass}>
+                    <a onClick={() => this.setState({ sortBy: 0, dropdownActive: false })}>Recent</a>
+                    <a onClick={() => this.setState({ sortBy: 2, dropdownActive: false })}>Likes</a>
+                  </div>
+                </div>
 
-              <selection style={{ width: '50%', textAlign: 'right', padding: 8 }}>
-              </selection>
+              </div>
             </section>
             :
             null
@@ -170,16 +224,16 @@ class Home extends React.Component {
         }
         {this.state.activeTab != 2 ?
           <div
-            style={{ margin: 'auto', marginTop: 18, width: '90%', borderBottom: '1px solid rgba(0, 0, 0, 0.1)' }}>
+            style={{ margin: 'auto', marginTop: 18, width: '90%', }}>
           </div> : null
         }
 
         <div id='main' style={{ width: '100%', }}>
           {
             posts.length > 0 ?
-            displayContent : 
-            <NoPostFound handleTabChange = {this.handleTabChange} activeTab={this.state.activeTab}>
-            </NoPostFound>
+              displayContent :
+              <NoPostFound handleTabChange={this.handleTabChange} activeTab={this.state.activeTab}>
+              </NoPostFound>
           }
         </div>
 

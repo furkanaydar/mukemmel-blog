@@ -7,7 +7,6 @@ import { TiCalendarOutline } from 'react-icons/ti'
 
 import Tag from '../components/tag'
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
 import Fade from 'react-reveal/Fade';
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
@@ -37,7 +36,7 @@ class BlogPost extends Component {
         })
     }
     render() {
-
+        const ReactMarkdown = require('react-markdown/with-html')
         const iconStyle = {
             fontSize: 20,
             verticalAlign: 'middle',
@@ -90,10 +89,10 @@ class BlogPost extends Component {
                         </div>
                         {
                             this.props.postImg ?
-                            <div style={{ margin: 'auto' }}>
-                                <img src={this.props.postImg}
-                                    style={Styles.blogImage} alt="Girl in a jacket" />
-                            </div> : null
+                                <div style={{ margin: 'auto' }}>
+                                    <img src={this.props.postImg}
+                                        style={Styles.blogImage} alt="Girl in a jacket" />
+                                </div> : null
                         }
                         <h1 style={{ marginTop: 24, marginBottom: 36, }}>
                             <Link href={this.props.slug}>
@@ -102,7 +101,8 @@ class BlogPost extends Component {
                         </h1>
 
                         <div style={Styles.blogText}>
-                            <ReactMarkdown source={(this.props.shortened) ? this.props.details.substring(0, 240) : this.props.details} />
+                            <ReactMarkdown escapeHtml={false}
+                                source={(this.props.shortened) ? this.props.details.substring(0, 240) : this.props.details} />
                         </div>
                         <div style={Styles.blogFooter}>
                             <div style={{ display: 'flex' }}>
