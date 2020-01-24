@@ -116,7 +116,7 @@ class Home extends React.Component {
 
       <div style={Styles.blogPostsContainer}>
         {posts.slice((this.state.activePage - 1) * 3, this.state.activePage * 3).map(post => (
-          <BlogPost type={this.state.activeTab} likes={post.likes} shortened={true} key={post.id} slug={post.slug}
+          <BlogPost type={this.state.activeTab} tags={post.tags.split(',')} likes={post.likes} shortened={true} key={post.id} slug={post.slug}
             postImg={post.img_url} title={post.title} details={post.details} date={post.date}>
           </BlogPost>
         ))}
@@ -124,9 +124,6 @@ class Home extends React.Component {
     let displayContent = (this.state.activeTab != 2) ? blogPosts : <AboutMe></AboutMe>
     return (
       <div ref={(el) => { this.header = el; }} style={Styles.container}>
-        {
-          this.state.isAdmin ? 'ADMIN' : 'NOTADMIN'
-        }
         <style jsx>{`
           .dropdown-content {
             display: none;

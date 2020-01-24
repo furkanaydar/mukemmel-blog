@@ -185,6 +185,7 @@ class CurrentPost extends React.Component {
               </button>
             </div>
             <BlogPost
+              tags={postInfo.tags.split(',')}
               handleLike={this.handleLike} shortened={false}
               key={postInfo.id} likes={postInfo.likes}
               postImg={postInfo.img_url}

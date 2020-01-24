@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Styles from '../../src/styles'
 import BlogPost from '../../components/blogPost'
+import Router from 'next/router'
 
 class CreatePost extends Component {
     constructor() {
@@ -16,6 +17,7 @@ class CreatePost extends Component {
             tags: '',
             type: 'POST',
             isAdmin: false,
+            displayLoading: false,
         }
         this.handleForm = this.handleForm.bind(this);
         this.handleSelect = this.handleSelect.bind(this)
@@ -38,12 +40,15 @@ class CreatePost extends Component {
     }
 
     async handleSubmit() {
+        this.setState({
+            displayLoading: true
+        })
         const data = {
             details: this.state.value,
             title: this.state.title,
             slug: this.state.slug,
             img_url: this.state.imgurl,
-            type: this.state.type,
+            type: this.state.type == 'POST' ? 0 : 1,
             tags: this.state.tags
         }
         const settings = {
@@ -51,10 +56,11 @@ class CreatePost extends Component {
             body: JSON.stringify(data)
         };
         const res = await fetch(`http://localhost:3000/api/admin/createPost`, settings);
-     /*   if (admin.isAdmin) {
-            localStorage.setItem('isAdmin', true)
-            Router.push('/')
-        } */
+        const json = await res.json();
+        this.setState({
+            displayLoading: false
+        })
+        Router.push('/')
     }
 
     componentDidMount() {
@@ -63,12 +69,8 @@ class CreatePost extends Component {
         })
     }
     render() {
-        const ReactMarkdown = require('react-markdown/with-html')
-
-        const delimiters = [188, 13];
         const createForm =
             <div>
-
                 <textarea name='value' onChange={this.handleForm}
                     value={this.state.value} style={Styles.createArticleTextArea} type='textarea'>
                 </textarea>
@@ -124,9 +126,12 @@ class CreatePost extends Component {
         const content = this.state.tab == 1 ?
             createForm
             :
+            <div style={{textAlign:'left'}}>
             <BlogPost type={0} likes={0} shortened={false} key={1} slug={this.state.slug}
+                tags={this.state.tags.split(',')}
                 postImg={this.state.imgurl} title={this.state.title} details={this.state.value} date={'DATE'}>
             </BlogPost>
+            </div>
 
         const display =
             <div style={Styles.createArticleContainer}>
@@ -136,6 +141,8 @@ class CreatePost extends Component {
                 </section>
                 {content}
                 <button onClick={this.handleSubmit} style={Styles.adminButtonStyle}> CREATE </button>
+                {this.state.displayLoading ? 'Creating...': null}
+
             </div>
 
         return (

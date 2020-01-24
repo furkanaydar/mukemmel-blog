@@ -81,11 +81,8 @@ class BlogPost extends Component {
                     <div id='container' style={Styles.blog}>
 
                         <div id='tagContainer' style={Styles.tagContainer}>
-                            <Tag key='1' tagText='Computer Engineering'></Tag>
-                            <Tag key='2' tagText='Working as a team'></Tag>
-
-                            <Tag key='3' tagText='Popular'></Tag>
-                            <Tag key='4' tagText='Trick'></Tag>
+                            {this.props.tags.map((tag) => <Tag key={tag} tagText={tag}></Tag>)}
+                            
                         </div>
                         {
                             this.props.postImg ?
