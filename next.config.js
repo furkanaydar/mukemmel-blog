@@ -1,6 +1,7 @@
 
+const withImages = require('next-images')
 
-module.exports = {
+module.exports = withImages({
 
   webpack: config => {
 
@@ -10,6 +11,7 @@ module.exports = {
     });
 
     return config;
-  }
-};
+  },
+  
+});
 

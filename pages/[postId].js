@@ -217,8 +217,12 @@ class CurrentPost extends React.Component {
               <Fade big>
                 <div id='commentSection'>
                   {
-                    this.state.comments.slice(0, this.state.activeBorder).map((comment) => <CommentBox details={comment.details}
-                      date={comment.date} owner={comment.owner}></CommentBox>)
+                    this.state.comments.slice(0, this.state.activeBorder).map((comment, i) =>
+                      <CommentBox details={comment.details}
+                        id={comment.id}
+                        date={comment.date} owner={comment.owner}>
+                        
+                      </CommentBox>)
                   }
                 </div>
 

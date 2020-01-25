@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Styles from '../src/styles'
 
-import { FaRegHeart, FaCommentAlt, FaHeart, FaFacebook, FaTwitter, } from 'react-icons/fa'
+import { FaRegHeart, FaCommentAlt, FaHeart, FaFacebook, FaTwitter, FaTrash } from 'react-icons/fa'
 import { TiCalendarOutline } from 'react-icons/ti'
 
 import Tag from '../components/tag'
@@ -18,6 +18,7 @@ class BlogPost extends Component {
             showComments: false
         }
         this.handleLike = this.handleLike.bind(this)
+        this.handleDeletePost = this.handleDeletePost.bind(this)
     }
 
     async handleLike() {
@@ -30,9 +31,18 @@ class BlogPost extends Component {
             isLiked: true
         })
     }
+
+    async handleDeletePost() {
+        let slug = this.props.slug
+        const res = await fetch('http://localhost:3000/api/admin/deletePost/' + slug);
+        const json = await res.json();
+        window.location.reload();
+    }
+
     componentDidMount() {
         this.setState({
-            likes: this.props.likes
+            likes: this.props.likes,
+            isAdmin: localStorage.getItem('isAdmin')
         })
     }
     render() {
@@ -79,10 +89,19 @@ class BlogPost extends Component {
                 `}</style>
 
                     <div id='container' style={Styles.blog}>
-
+                        {
+                            this.state.isAdmin ?
+                                <div style={{ textAlign: 'right' }}>
+                                    <a onClick={this.handleDeletePost}
+                                        style={{ cursor: 'pointer', fontSize: 22, }}>
+                                        <FaTrash style={{ color: 'silver' }}>
+                                        </FaTrash>
+                                    </a>
+                                </div> : null
+                        }
                         <div id='tagContainer' style={Styles.tagContainer}>
                             {this.props.tags.map((tag) => <Tag key={tag} tagText={tag}></Tag>)}
-                            
+
                         </div>
                         {
                             this.props.postImg ?

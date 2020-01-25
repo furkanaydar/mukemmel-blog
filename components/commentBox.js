@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Styles from '../src/styles'
 import { TiCalendarOutline } from 'react-icons/ti'
 import { FiUser } from 'react-icons/fi'
+import { FaTrash } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown';
 import Fade from 'react-reveal/Fade';
 
@@ -9,8 +10,25 @@ class CommentBox extends Component {
     constructor() {
         super();
         this.state = {
-
+            isAdmin: false
         }
+        this.handleDeleteComment = this.handleDeleteComment.bind(this)
+    }
+
+    componentDidMount() {
+        this.setState({
+            isAdmin: localStorage.getItem('isAdmin')
+        })
+    }
+
+    async handleDeleteComment() {
+        if(!this.state.isAdmin) {
+            alert('You are not authorized.')
+            return;
+        }
+        const res = await fetch(`http://localhost:3000/api/admin/deleteComment/` + this.props.id);
+        const json = await res.json();
+        window.location.reload();
     }
     render() {
         const comment = this.props.details
@@ -29,12 +47,27 @@ class CommentBox extends Component {
                         </a>
                         {this.props.date.substring(0, 10)}
                     </div>
+
                 </div>
                 <div style={{ padding: 22, fontWeight: 'bolder' }}>
                     <ReactMarkdown source={comment}>
 
                     </ReactMarkdown>
                 </div>
+                {
+                    
+                }
+                {
+                    this.state.isAdmin ?
+                        <div style={{ textAlign: 'right' }}>
+                            <a onClick={this.handleDeleteComment}
+                                style={{ verticalAlign: 'middle', marginRight: 20, cursor: 'pointer', fontSize: 22, }}>
+                                <FaTrash style={{ color: 'silver' }}>
+                                </FaTrash>
+                            </a>
+                        </div> : null
+                }
+                
             </div>
         )
     }

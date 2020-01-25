@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import Link from "next/link";
 import Head from "next/head";
-import { FaTwitter, FaGithubAlt, FaLinkedinIn, FaInstagram } from 'react-icons/fa'
+import { FaTwitter, FaGithubAlt, FaLinkedinIn, FaInstagram, FaKey, FaPen } from 'react-icons/fa'
+import { GoSignOut } from 'react-icons/go'
 import Styles from '../src/styles'
+import Router from 'next/router';
 
 
 
@@ -10,11 +12,21 @@ class Header extends Component {
     constructor() {
         super();
         this.state = {
-
+            isAdmin: false
         }
+        this.handleLogOut = this.handleLogOut.bind(this);
     }
 
-
+    componentDidMount() {
+        this.setState({
+            isAdmin: localStorage.getItem('isAdmin') ? true : false
+        })
+    }
+    handleLogOut() {
+        localStorage.clear();
+        Router.push('/')
+        window.location.reload();
+    }
 
     render() {
 
@@ -53,6 +65,29 @@ class Header extends Component {
                                 <i className='icon'><FaTwitter></FaTwitter></i>
                             </a>
                         </Link>
+                        {
+                            this.state.isAdmin ?
+
+                                <a onClick={this.handleLogOut} className='icon' style={{ ...Styles.socialLink, ...Styles.a }}>
+                                    <i className='icon'><GoSignOut></GoSignOut></i>
+                                </a>
+                                :
+                                <Link href="admin/admin">
+                                    <a className='icon' style={{ ...Styles.socialLink, ...Styles.a }}>
+                                        <i className='icon'><FaKey></FaKey></i>
+                                    </a>
+                                </Link>
+                        }
+                        {
+                            this.state.isAdmin ?
+                                <Link href="/admin/createPost">
+                                    <a className='icon' style={{ ...Styles.socialLink, ...Styles.a }}>
+                                        <i className='icon'><FaPen></FaPen></i>
+                                    </a>
+                                </Link> :
+                                null
+                        }
+
                     </div>
                 </div>
             </div>

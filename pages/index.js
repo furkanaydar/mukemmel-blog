@@ -18,6 +18,7 @@ import Fade from 'react-reveal/Fade';
 import { sortByChoice } from '../lib/comparators'
 import NoPostFound from "../components/noPostFound";
 
+import { FaKey } from 'react-icons/fa'
 
 class Home extends React.Component {
   constructor() {
@@ -125,6 +126,7 @@ class Home extends React.Component {
     return (
       <div ref={(el) => { this.header = el; }} style={Styles.container}>
         <style jsx>{`
+
           .dropdown-content {
             display: none;
           }
@@ -143,6 +145,8 @@ class Home extends React.Component {
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
           }
+
+
           .dropdown-content-display a:hover {
             background-color: whitesmoke;
 
@@ -171,10 +175,10 @@ class Home extends React.Component {
 
             <section style={{
               display: 'flex',
-              width: '90%', margin: 'auto', marginTop: 32, paddingTop:20, marginBottom:12,  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+              width: '90%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
             }}>
               <SearchBar activeTab={this.state.activeTab} handleSearchQuery={this.handleSearchQuery}></SearchBar>
-              <div style={{width:'30%'}}></div>
+              <div style={{ width: '30%' }}></div>
               <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                 style={Styles.dropdownContainer}>
                 <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>
@@ -242,9 +246,12 @@ class Home extends React.Component {
               activePage={this.state.activePage} pageRange={Math.ceil(posts.length / 3)}>
             </Paginator> : null
         }
+        <div style={{ margin: 'auto', textAlign: 'center' }}>
+        </div>
 
       </div>
     )
+
   }
 }
 
