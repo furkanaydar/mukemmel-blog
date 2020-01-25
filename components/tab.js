@@ -3,6 +3,9 @@ import Styles from '../src/styles'
 import { FiList, FiUser, FiMap } from 'react-icons/fi'
 
 
+import Link from "next/link";
+
+
 class Tab extends Component {
     constructor() {
         super();
@@ -14,13 +17,13 @@ class Tab extends Component {
 
 
     render() {
-
+        let targetPage = this.props.targetPage == 0 ? '/' : this.props.targetPage == 2 ? '/aboutMe' : '/projects'
         let icon = (this.props.tabId == 0) ? <FiList></FiList> :
             (this.props.tabId == 1) ? <FiMap></FiMap> : <FiUser></FiUser>
         let tabStyle = (this.props.isActive) ? Styles.activeTab : Styles.tab
         return (
             <div style={{ padding: 6, width: '33.2%', textAlign: 'center', }}>
-                                    <style jsx>{`
+                <style jsx>{`
                     .tab {
                         border-radius:8px;
 
@@ -32,11 +35,14 @@ class Tab extends Component {
                         cursor: pointer;
                     }
                 `}</style>
-                <button className='tab' onClick={() => this.props.handleTabChange(this.props.tabId)} style={tabStyle}>
+                <Link href={targetPage}>
 
-                    <a style={{ padding: 0, marginRight: 8 }}>{icon}</a>
-                    {this.props.tabText}
-                </button>
+                    <button className='tab' style={tabStyle}>
+
+                        <a style={{ padding: 0, marginRight: 8 }}>{icon}</a>
+                        {this.props.tabText}
+                    </button>
+                </Link>
             </div>
         )
     }

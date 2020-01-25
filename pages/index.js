@@ -12,6 +12,9 @@ import AboutMe from "../components/aboutMe";
 import Paginator from '../components/paginator'
 import SearchBar from '../components/searchbar'
 
+import Link from "next/link";
+
+
 import { MdClear, MdArrowDropDown } from 'react-icons/md'
 import Fade from 'react-reveal/Fade';
 
@@ -166,9 +169,9 @@ class Home extends React.Component {
         </Head>
         <Header></Header>
         <section style={Styles.tabsSection}>
-          <Tab handleTabChange={this.handleTabChange} tabId='0' tabText='POSTS' isActive={this.state.activeTab == 0}></Tab>
-          <Tab handleTabChange={this.handleTabChange} tabId='1' tabText='MY PROJECTS' isActive={this.state.activeTab == 1}></Tab>
-          <Tab handleTabChange={this.handleTabChange} tabId='2' tabText='ABOUT ME' isActive={this.state.activeTab == 2}></Tab>
+          <Tab targetPage={0} handleTabChange={this.handleTabChange} tabId='0' tabText='POSTS' isActive={true}></Tab>
+          <Tab handleTabChange={this.handleTabChange} tabId='1' tabText='MY PROJECTS' isActive={false}></Tab>
+          <Tab targetPage={2} handleTabChange={this.handleTabChange} tabId='2' tabText='ABOUT ME' isActive={false}></Tab>
         </section>
         {
           this.state.activeTab != 2 ?
