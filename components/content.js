@@ -12,7 +12,7 @@ import { FaKey } from 'react-icons/fa'
 
 import Fade from 'react-reveal/Fade';
 
-import {sortByChoice} from '../lib/comparators'
+import { sortByChoice } from '../lib/comparators'
 import Header from '../components/header'
 import Tab from '../components/tab'
 import SearchBar from '../components/searchbar'
@@ -41,7 +41,7 @@ class Content extends Component {
         this.header.scrollIntoView({ behavior: "smooth" });
     }
 
-
+    //TESTED
     handlePageChange(newPage) {
         this.setState({
             activePage: parseInt(newPage)
@@ -53,32 +53,28 @@ class Content extends Component {
         this.setState({
             searching: true
         })
-        let endpoint = "http://localhost:3000/api/posts"
-        if (searchQuery.length > 0)
-            endpoint = "http://localhost:3000/api/post/search/" + searchQuery
+        
+        let endpoint = (searchQuery.length > 0) ? 
+            "http://localhost:3000/api/post/search/" + searchQuery :
+            "http://localhost:3000/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
+
         const res = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ type: this.state.activeTab })
+            body: JSON.stringify({ type: this.props.activeTab })
         });
         const json = await res.json();
-        if (this.state.activeTab == 0)
-            this.setState({
-                posts: (searchQuery.length > 0) ? json.post : json.posts,
-                activePage: 1,
-                searchQuery: searchQuery,
-                searching: false,
-            })
-        else
-            this.setState({
-                projects: (searchQuery.length > 0) ? json.post : json.posts,
-                activePage: 1,
-                searchQuery: searchQuery,
-                searching: false,
-            })
+        const newContent = (searchQuery.length > 0) ? json.post : ((this.props.activeTab == 0) ? json.posts : json.projects)
+        this.setState({
+            content: newContent,
+            activePage: 1,
+            searchQuery: searchQuery,
+            searching: false,
+        })
+
 
     }
 
@@ -89,7 +85,6 @@ class Content extends Component {
             content: content,
             isAdmin: isAdmin
         })
-        console.log('asdasdsadasd')
     }
     render() {
         let dropdownState = this.state.dropdownActive
@@ -191,7 +186,7 @@ class Content extends Component {
                                     this.state.searching ?
                                         'Loading...' :
                                         <div>
-                                            <a onClick={() => this.handleTabChange(this.state.activeTab)}
+                                            <a onClick={() => this.handleSearchQuery('')}
                                                 style={{ cursor: 'pointer', verticalAlign: 'middle', marginRight: 3, }}>
                                                 <MdClear></MdClear>
                                             </a>
@@ -211,9 +206,9 @@ class Content extends Component {
 
                 <div id='main' style={{ width: '100%', }}>
                     {
-                        posts.length > 0 ?
+                        this.state.content.length > 0 ?
                             displayContent :
-                            <NoPostFound activeTab={this.state.activeTab}>
+                            <NoPostFound goHome={this.handleSearchQuery} activeTab={this.props.activeTab}>
                             </NoPostFound>
                     }
                 </div>

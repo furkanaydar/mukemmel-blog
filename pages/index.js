@@ -14,7 +14,7 @@ class Home extends React.Component {
   componentDidMount() {
 
   }
-  
+
   render() {
     return(
       <Content activeTab={0} content={this.props.posts}></Content>
@@ -27,7 +27,7 @@ Home.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const res = await fetch("http://localhost:3000/api/posts");
   const json = await res.json();
-  return { posts: json.posts, projects: json.projects };
+  return { posts: json.posts,  };
 };
 
 export default Home;

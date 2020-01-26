@@ -2,10 +2,15 @@ import React, { Component } from 'react'
 
 import { MdSmsFailed, MdClear } from 'react-icons/md'
 
+import Link from "next/link";
 
 class NoPostFound extends Component {
+    constructor() {
+        super();
+    }
 
     render() {
+        let goTo = this.props.activeTab == 0 ? '' : 'projects'
         return (
             <div style={{
                 margin: 'auto', textAlign: 'center', marginTop: 48,
@@ -18,10 +23,11 @@ class NoPostFound extends Component {
                     No posts found.
                   </div>
                 <div style={{ marginTop: 20, }}>
-                    <a style={{ cursor: 'pointer', textDecoration: 'underline' }} 
-                    onClick={() => this.props.handleTabChange(this.props.activeTab)}>
+
+                    <a onClick={() => this.props.goHome('')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
                         HOME
                     </a>
+
                 </div>
             </div>
         )
