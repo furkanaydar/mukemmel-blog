@@ -67,10 +67,11 @@ class Header extends Component {
                         </Link>
                         {
                             this.state.isAdmin ?
-
-                                <a onClick={this.handleLogOut} className='icon' style={{ ...Styles.socialLink, ...Styles.a }}>
-                                    <i className='icon'><GoSignOut></GoSignOut></i>
-                                </a>
+                                <Link href='/'>
+                                    <a onClick={this.handleLogOut} className='icon' style={{ ...Styles.socialLink, ...Styles.a }}>
+                                        <i className='icon'><GoSignOut></GoSignOut></i>
+                                    </a>
+                                </Link>
                                 :
                                 <Link href="admin/admin">
                                     <a className='icon' style={{ ...Styles.socialLink, ...Styles.a }}>

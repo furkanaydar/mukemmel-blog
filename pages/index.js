@@ -103,7 +103,6 @@ class Home extends React.Component {
     let posts = this.props.posts
     let projects = this.props.projects
     let isAdmin = true
-    console.log(projects)
     this.setState({
       posts: posts,
       projects: projects,
