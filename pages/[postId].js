@@ -221,28 +221,30 @@ class CurrentPost extends React.Component {
                       <CommentBox details={comment.details}
                         id={comment.id}
                         date={comment.date} owner={comment.owner}>
-                        
+
                       </CommentBox>)
                   }
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
-                  <button
-                    onClick={this.handleExpand}
-                    className='submit-button'
-                    style={{
-                      marginTop: 32,
-                      width: '16%',
-                      letterSpacing: 3,
-                      fontWeight: 'bolder',
-                      padding: 4,
-                      borderRadius: 6,
-                      fontSize: 12,
-                      border: '1px solid #001f3f',
-                      fontFamily: 'PT Sans, serif',
-                    }}>
-                    {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
-                  </button>
+                  {
+                    this.state.comments.length > 5 ?
+                      <button
+                        onClick={this.handleExpand}
+                        className='submit-button'
+                        style={{
+                          marginTop: 32,
+                          width: '16%',
+                          letterSpacing: 3,
+                          fontWeight: 'bolder',
+                          padding: 4,
+                          borderRadius: 6,
+                          fontSize: 12,
+                          border: '1px solid #001f3f',
+                          fontFamily: 'PT Sans, serif',
+                        }}>
+                        {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
+                      </button> : null}
                 </div>
 
 

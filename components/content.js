@@ -36,6 +36,7 @@ class Content extends Component {
         this.handlePageChange = this.handlePageChange.bind(this)
         this.scrollToHeader = this.scrollToHeader.bind(this)
         this.handleSearchQuery = this.handleSearchQuery.bind(this);
+        this.searchStart = this.searchStart.bind(this)
     }
     scrollToHeader = () => {
         this.header.scrollIntoView({ behavior: "smooth" });
@@ -48,11 +49,14 @@ class Content extends Component {
         })
         this.scrollToHeader();
     }
-
-    async handleSearchQuery(searchQuery) {
+    searchStart(searchQuery) {
         this.setState({
             searching: true
         })
+        this.handleSearchQuery(searchQuery)
+    }
+    async handleSearchQuery(searchQuery) {
+
         
         let endpoint = (searchQuery.length > 0) ? 
             "http://localhost:3000/api/post/search/" + searchQuery :
@@ -154,7 +158,7 @@ class Content extends Component {
                     display: 'flex',
                     width: '90%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
-                    <SearchBar activeTab={this.props.activeTab} handleSearchQuery={this.handleSearchQuery}></SearchBar>
+                    <SearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></SearchBar>
                     <div style={{ width: '30%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
