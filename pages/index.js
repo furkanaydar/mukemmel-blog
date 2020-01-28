@@ -2,6 +2,8 @@ import React from "react";
 import fetch from "isomorphic-unfetch";
 import Content from "../components/content";
 
+import Styles from '../src/styles'
+
 class Home extends React.Component {
   constructor() {
     super();
@@ -16,8 +18,9 @@ class Home extends React.Component {
   }
 
   render() {
-    return(
+    return(<div style={Styles.mama}>
       <Content activeTab={0} content={this.props.posts}></Content>
+      </div>
     )
   }
 

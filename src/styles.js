@@ -2,6 +2,9 @@
 
 
 const Styles = {
+  mama: {
+    //backgroundImage: "url(" + `${require("./images/nack4.jpg")}` + ")"
+  },
   blog: {
 
     fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
@@ -19,7 +22,7 @@ const Styles = {
   container: {
     maxWidth: 1000,
     margin: '0 auto',
-  //  backgroundImage: "url(" + `${require("./images/back.jpeg")}` + ")",
+    //backgroundImage: "url(" + `${require("./images/back3.jpg")}` + ")",
  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   },
   blogPostsContainer: {
