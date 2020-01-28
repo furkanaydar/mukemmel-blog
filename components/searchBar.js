@@ -5,7 +5,7 @@ import Styles from '../src/styles'
 
 import { GoSearch } from 'react-icons/go'
 
-class SearchBar extends Component {
+class MySearchBar extends Component {
     constructor() {
         super();
         this.state = {
@@ -64,4 +64,4 @@ class SearchBar extends Component {
         )
     }
 }
-export default SearchBar
+export default MySearchBar

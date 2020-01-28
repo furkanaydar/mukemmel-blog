@@ -15,7 +15,7 @@ import Fade from 'react-reveal/Fade';
 import { sortByChoice } from '../lib/comparators'
 import Header from '../components/header'
 import Tab from '../components/tab'
-import SearchBar from '../components/searchbar'
+import MySearchBar from '../components/searchbar'
 import NoPostFound from '../components/noPostFound'
 import BlogPost from '../components/blogPost'
 import Paginator from '../components/paginator'
@@ -158,7 +158,7 @@ class Content extends Component {
                     display: 'flex',
                     width: '90%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
-                    <SearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></SearchBar>
+                    <MySearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></MySearchBar>
                     <div style={{ width: '30%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
