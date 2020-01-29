@@ -182,9 +182,9 @@ const Styles = {
     marginTop: 20,
     borderRadius: 8,
     width: '64%',
-    backgroundColor: 'whitesmoke',
+    border: '1px solid whitesmoke',
+    //backgroundColor: 'whitesmoke',
     fontWeight: 'lighter',
-    border: 'none',
     boxShadow: '0 2px 3px 0px rgba(0, 0, 0, 0.16)'
   },
 
