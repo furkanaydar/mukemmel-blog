@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Fade from 'react-reveal/Fade';
+import Styles from '../src/styles'
 
 class Paginator extends Component {
     constructor() {
@@ -22,31 +23,8 @@ class Paginator extends Component {
         const maxPageNumber = Math.min(activePage + rightCount, this.props.pageRange)
         const numArray = Array.from(Array(maxPageNumber - minPageNumber + 1).keys())
 
-        const listItemStyle = {
-            fontFamily: 'PT Sans, serif',
-            userSelect: 'none',
-            margin: 5,
-            fontSize: 14,
-            border: 'none',
-            padding: 2,
-            cursor: 'pointer',
-            transition:'0.6s'
-        }
-        const activeItemStyle = {
-            fontFamily: 'PT Sans, serif',
-
-            userSelect: 'none',
-            marginRight: 5,
-            fontSize: 22,
-            border: 'none',
-            backgroundColor: 'lightblue',
-            padding: 4,
-            color: 'white',
-            cursor: 'pointer',
-            transition:'0.6s'
-
-
-        }
+        const listItemStyle = Styles.paginatorPassiveItemStyle
+        const activeItemStyle = Styles.paginatorActiveItemStyle
         return (
             <div style={{
                 display: 'inline-block', margin: 'auto', width: '90%',

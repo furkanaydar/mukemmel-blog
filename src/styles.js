@@ -56,9 +56,26 @@ const Styles = {
   },
   tagContainer: {
     marginBottom: 12,
-
   },
-
+  tagStyle: {
+    fontFamily: 'PT Sans, serif',
+    textTransform: 'uppercase',
+    letterSpacing: 4,
+    fontSize: '12px',
+    background: '#eee',
+    borderRadius: '3px 0 0 3px',
+    color: '#999',
+    paddingLeft:12,
+    paddingRight:12,
+    display: 'inline-block',
+    height: '26px',
+    lineHeight: '26px',
+    position: 'relative',
+    margin: '0 10px 10px 0',
+    textDecoration: 'none',
+    boxShadow: '0px 0px 2px rgba(0,0,0,0.14)',
+    cursor: 'default'
+  },
   hero: {
     fontFamily: 'Noto Sans KR, serif',
     letterSpacing: 5,
@@ -269,6 +286,90 @@ const Styles = {
     marginBottom: 5,
     marginRight: 5,
     padding: 5
+  },
+  homeButtonStyle: {
+    marginTop: 32,
+    width: '18%',
+    letterSpacing: 3,
+    fontWeight: 'bolder',
+    padding: 4,
+    borderRadius: 6,
+    fontSize: 12,
+    border: '1px solid #001f3f',
+    fontFamily: 'PT Sans, serif',
+  },
+
+  seeMoreButtonStyle: {
+    marginTop: 32,
+    width: '16%',
+    letterSpacing: 3,
+    fontWeight: 'bolder',
+    padding: 4,
+    borderRadius: 6,
+    fontSize: 12,
+    border: '1px solid #001f3f',
+    fontFamily: 'PT Sans, serif',
+  },
+
+  addCommentButtonStyle: {
+    fontFamily: 'PT Sans, serif', 
+    width: '72%', 
+    margin: 'auto', 
+    textAlign: 'center',
+    marginTop: 20  
+  },
+
+  makeCommentFormName: {
+    width: '80%',
+    backgroundColor: 'whitesmoke', borderRadius: 8,
+    border: 'none', boxShadow: 'none', outline: 'none',
+    padding: 12,
+    marginBottom: 20,
+  },
+
+  makeCommentFormDetails: {
+    width: '80%',
+    resize: 'none',
+    letterSpacing: 1.4,
+    backgroundColor: 'whitesmoke', borderRadius: 8,
+    boxShadow: 'none',
+    padding: 12
+  },
+
+  makeCommentFormButton : {
+    marginTop: 32,
+    width: '25%',
+    letterSpacing: 3,
+    fontWeight: 'bolder',
+    padding: 4,
+    borderRadius: 6,
+    fontSize: 14,
+    border: '1px solid #001f3f',
+    fontFamily: 'PT Sans, serif',
+  },
+
+  paginatorPassiveItemStyle: {
+    fontFamily: 'PT Sans, serif',
+    userSelect: 'none',
+    margin: 5,
+    fontSize: 14,
+    border: 'none',
+    padding: 2,
+    cursor: 'pointer',
+    transition:'0.6s'
+  },
+
+  paginatorActiveItemStyle: {
+    fontFamily: 'PT Sans, serif',
+    userSelect: 'none',
+    marginRight: 5,
+    fontSize: 22,
+    border: 'none',
+    backgroundColor: 'lightblue',
+    padding: 4,
+    color: 'white',
+    cursor: 'pointer',
+    transition:'0.6s'
   }
 }
 export default Styles

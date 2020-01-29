@@ -58,13 +58,7 @@ class MakeCommentForm extends Component {
                                 onChange={this.handleForm}
                                 value={this.state.name}
                                 placeholder='Your name...'
-                                style={{
-                                    width: '80%',
-                                    backgroundColor: 'whitesmoke', borderRadius: 8,
-                                    border: 'none', boxShadow: 'none', outline: 'none',
-                                    padding: 12,
-                                    marginBottom: 20,
-                                }}>
+                                style={Styles.makeCommentFormName}>
 
                             </input>
                             <textarea
@@ -74,31 +68,13 @@ class MakeCommentForm extends Component {
                                 placeholder='Your thoughts...'
                                 className='comment-text'
                                 rows='6'
-                                style={{
-                                    width: '80%',
-                                    resize: 'none',
-                                    letterSpacing: 1.4,
-                                    backgroundColor: 'whitesmoke', borderRadius: 8,
-                                    boxShadow: 'none',
-                                    padding: 12
-                                }}
-
+                                style={Styles.makeCommentFormDetails}
                             >
                             </textarea>
                             <button
                                 onClick={() => this.props.handleSubmit(this.state.name, this.state.details)}
                                 className='submit-button'
-                                style={{
-                                    marginTop: 32,
-                                    width: '25%',
-                                    letterSpacing: 3,
-                                    fontWeight: 'bolder',
-                                    padding: 4,
-                                    borderRadius: 6,
-                                    fontSize: 14,
-                                    border: '1px solid #001f3f',
-                                    fontFamily: 'PT Sans, serif',
-                                }}>
+                                style={Styles.makeCommentFormButton}>
                                 SUBMIT
                                 </button>
                         </div>

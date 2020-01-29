@@ -169,17 +169,7 @@ class CurrentPost extends React.Component {
               <button
                 onClick={() => Router.back()}
                 className='submit-button'
-                style={{
-                  marginTop: 32,
-                  width: '18%',
-                  letterSpacing: 3,
-                  fontWeight: 'bolder',
-                  padding: 4,
-                  borderRadius: 6,
-                  fontSize: 12,
-                  border: '1px solid #001f3f',
-                  fontFamily: 'PT Sans, serif',
-                }}>
+                style={Styles.homeButtonStyle}>
                 <MdKeyboardBackspace style={{ marginRight: 10, verticalAlign: 'middle' }}></MdKeyboardBackspace>
                 {'Home'}
               </button>
@@ -232,17 +222,7 @@ class CurrentPost extends React.Component {
                       <button
                         onClick={this.handleExpand}
                         className='submit-button'
-                        style={{
-                          marginTop: 32,
-                          width: '16%',
-                          letterSpacing: 3,
-                          fontWeight: 'bolder',
-                          padding: 4,
-                          borderRadius: 6,
-                          fontSize: 12,
-                          border: '1px solid #001f3f',
-                          fontFamily: 'PT Sans, serif',
-                        }}>
+                        style={Styles.seeMoreButtonStyle}>
                         {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
                       </button> : null}
                 </div>
@@ -253,7 +233,7 @@ class CurrentPost extends React.Component {
           }
           <div onClick={this.handleCommentFormShow}
             className='add-comment'
-            id='makeCommentSection' style={{ fontFamily: 'PT Sans, serif', width: '72%', margin: 'auto', textAlign: 'center', marginTop: 20 }}>
+            id='makeCommentSection' style={Styles.addCommentButtonStyle}>
             <a style={{ fontSize: 28, letterSpacing: 3, }}>
               <FiPlusCircle style={{ marginRight: 8, verticalAlign: 'middle' }}></FiPlusCircle>
             </a>
