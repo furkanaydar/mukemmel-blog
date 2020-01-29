@@ -3,10 +3,11 @@
 
 const Styles = {
   mama: {
+    display: 'flex'
     //backgroundImage: "url(" + `${require("./images/nack4.jpg")}` + ")"
   },
   blog: {
-
+    
     fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
     fontSize: 16,
     fontWeight: 'lighter',
@@ -15,13 +16,13 @@ const Styles = {
     margin: '0 auto',
     marginTop: 20,
     borderRadius: 3,
-    width: '80%',
+    width: '75%',
     border: '1px solid rgba(0, 0, 0, 0.1)',
     boxShadow: '0px 3px 15px rgba(0,0,0,0.2)'
   },
   container: {
-    maxWidth: 1000,
-    margin: '0 auto',
+    maxWidth: '960px',
+    marginLeft: '8%',
     //backgroundImage: "url(" + `${require("./images/back3.jpg")}` + ")",
  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   },
@@ -115,11 +116,11 @@ const Styles = {
     marginTop: 32,
     justifyContent: 'space-between',
     display: 'flex',
-    width: '72%'
+    width: '84%'
   },
   tab: {
     width: '100%',
-    padding: 8,
+    padding: 6,
     verticalAlign: 'middle',
     fontFamily: 'PT Sans, serif',
     border: 'none',
