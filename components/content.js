@@ -156,17 +156,18 @@ class Content extends Component {
 
                 <section style={{
                     display: 'flex',
-                    width: '90%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+                    width: '84%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
                     <MySearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></MySearchBar>
-                    <div style={{ width: '30%' }}></div>
+                    <div style={{ width: '20%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
                         <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>
                             {'Sort by: ' + sortState}
                             <MdArrowDropDown
                                 style={{
-                                    marginLeft: 12, verticalAlign: 'middle',
+                                    width:20,
+                                    verticalAlign: 'middle',
                                     fontSize: 22,
                                 }}>
                             </MdArrowDropDown>

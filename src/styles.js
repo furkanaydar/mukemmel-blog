@@ -3,7 +3,8 @@
 
 const Styles = {
   mama: {
-    display: 'flex'
+    justifyContent: 'space-between',
+    display: 'flex',
     //backgroundImage: "url(" + `${require("./images/nack4.jpg")}` + ")"
   },
   blog: {
@@ -211,7 +212,7 @@ const Styles = {
     fontFamily: 'PT Sans, serif',
   },
   dropdownContainer: {
-    width:'20%',
+    width:'30%',
     cursor: 'pointer',
   },
   dropdown: {
@@ -219,10 +220,10 @@ const Styles = {
     borderRadius: 12,
     border: '1px solid rgba(0, 0, 0, 0.16)',
     textAlign: 'center',
-    padding: 4,
+    padding: 6,
     paddingRight: 6,
     paddingLeft: 6,
-    fontSize:14,
+    fontSize:12,
     color: 'grey',
     fontFamily: 'PT Sans, serif',
   },
