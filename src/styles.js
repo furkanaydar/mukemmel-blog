@@ -21,6 +21,13 @@ const Styles = {
     border: '1px solid rgba(0, 0, 0, 0.1)',
     boxShadow: '0px 3px 15px rgba(0,0,0,0.2)'
   },
+  aboutMeContainer: {
+    fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
+    fontSize: 16,
+    fontWeight: 'lighter',
+    padding: 48,
+    margin: 'auto',
+  },
   container: {
     maxWidth: '960px',
     marginLeft: '8%',
@@ -147,17 +154,7 @@ const Styles = {
     letterSpacing: 4,
     fontSize: '12px',
   },
-  aboutMeContainer: {
-    fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
-    fontSize: 16,
-    fontWeight: 'lighter',
-    padding: 48,
-    marginBottom: 32,
-    margin: '0 auto',
-    width: '80%',
 
-
-  },
   aboutMeImage: {
     boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
     border: '1px solid rgba(0, 0, 0, 0.1)',

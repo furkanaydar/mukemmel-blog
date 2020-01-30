@@ -20,7 +20,6 @@ import NoPostFound from '../components/noPostFound'
 import BlogPost from '../components/blogPost'
 import Paginator from '../components/paginator'
 import LoadingSpinner from './loadingAnimation'
-import Router from 'next/router'
 
 class Content extends Component {
     constructor() {
@@ -161,7 +160,7 @@ class Content extends Component {
                     width: '84%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
                     <MySearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></MySearchBar>
-                    <div style={{ width: '0%' }}></div>
+                    <div style={{ width: '20%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
                         <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>
