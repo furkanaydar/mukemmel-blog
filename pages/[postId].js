@@ -4,13 +4,12 @@ import Head from "next/head";
 import Header from '../components/header'
 import Styles from '../src/styles'
 import BlogPost from '../components/blogPost'
-import { MdChatBubbleOutline, MdKeyboardBackspace, MdHome, } from 'react-icons/md'
+import { MdChatBubbleOutline} from 'react-icons/md'
 import CommentBox from '../components/commentBox'
 import { FaAngleDown, FaAngleUp, } from 'react-icons/fa'
-import { FiPlusCircle, FiArrowLeftCircle } from 'react-icons/fi'
+import { FiPlusCircle} from 'react-icons/fi'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
-import Router from 'next/router'
 import LoadingSpinner from "../components/loadingAnimation";
 import Sidebar from '../components/sidebar'
 
@@ -258,18 +257,18 @@ class CurrentPost extends React.Component {
 
 CurrentPost.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const posts_res = await fetch("http://localhost:3000/api/posts");
+  const posts_res = await fetch("http://" + process.env.host + "/api/posts");
   const posts_json = await posts_res.json();
 
   console.log(posts_json)
-  const res = await fetch(`http://localhost:3000/api/post/${query.postId}`);
-  const comments = await fetch('http://localhost:3000/api/post/' + query.postId + '/comments')
+  const res = await fetch(`http://` + process.env.host + `/api/post/${query.postId}`);
+  const comments = await fetch('http://' + process.env.host + '/api/post/' + query.postId + '/comments')
   const json = await res.json();
   const comments_json = await comments.json();
 
-  const lastComment = await fetch('http://localhost:3000/api/lastComment');
+  const lastComment = await fetch('http://' + process.env.host +'/api/lastComment');
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch('http://localhost:3000/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const lastCommentPostSlug = await fetch('http://'+process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
 
   return { posts:posts_json.posts, post: json.post[0], comments: comments_json['comments'],lastComment: jsonLastComment.lastComment, lastCommentTitle: jsonLastCommentPostSlug.postTitle,

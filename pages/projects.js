@@ -19,14 +19,18 @@ class Projects extends Component {
     render() {
         return (
             this.state.loading ?
-                <LoadingSpinner></LoadingSpinner>:
+                <LoadingSpinner></LoadingSpinner> :
                 <div style={Styles.mama}>
 
                     <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
                     <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
                     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
                     <link href="https://fonts.googleapis.com/css?family=Crimson+Text&display=swap" rel="stylesheet" />
-                    <Sidebar lastComment={this.props.lastComment} lastCommentSlug={this.props.lastCommentSlug}></Sidebar>
+                    <Sidebar lastComment={this.props.lastComment}
+                        lastCommentTitle={this.props.lastCommentTitle}
+                        lastCommentSlug={this.props.lastCommentSlug}
+                        content={this.props.posts}>
+                    </Sidebar>
                     <div style={{ flexGrow: 9 }}>
                         <Content activeTab={1} content={this.props.projects}></Content>
                     </div>
@@ -38,13 +42,16 @@ class Projects extends Component {
 
 Projects.getInitialProps = async ({ req, query }) => {
     // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-    const res = await fetch("http://localhost:3000/api/projects");
+    const res_posts = await fetch("http://" + process.env.host + "/api/posts");
+    const json_posts = await res_posts.json();
+    const res = await fetch("http://" + process.env.host + "/api/projects");
     const json = await res.json();
-    const lastComment = await fetch('http://localhost:3000/api/lastComment');
+    const lastComment = await fetch('http://' + process.env.host + '/api/lastComment');
     const jsonLastComment = await lastComment.json();
-    const lastCommentPostSlug = await fetch('http://localhost:3000/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+    const lastCommentPostSlug = await fetch('http://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
     const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
-    return { projects: json.projects, lastComment: jsonLastComment.lastComment, lastCommentSlug: jsonLastCommentPostSlug.postSlug };
+    return { posts: json_posts.posts,  projects: json.projects, lastComment: jsonLastComment.lastComment, 
+        lastCommentTitle: jsonLastCommentPostSlug.postTitle, lastCommentSlug: jsonLastCommentPostSlug.postSlug };
 };
 
 export default Projects

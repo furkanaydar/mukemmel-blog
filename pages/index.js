@@ -4,10 +4,6 @@ import Content from "../components/content";
 
 import Styles from '../src/styles'
 
-import { GiSmallFire } from 'react-icons/gi'
-import { FaHashtag, FaRegComments } from 'react-icons/fa'
-import { AiFillTag } from 'react-icons/ai'
-
 import Sidebar from '../components/sidebar'
 import LoadingSpinner from "../components/loadingAnimation";
 
