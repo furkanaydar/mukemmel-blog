@@ -88,6 +88,9 @@ class Sidebar extends Component {
                             flex-direction: column;
                             padding: 12px;
                         }
+                        .sidebar {
+                            display: none;
+                        }
                     }
                 `}
                 </style>
