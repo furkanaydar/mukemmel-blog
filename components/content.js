@@ -19,6 +19,8 @@ import MySearchBar from '../components/searchbar'
 import NoPostFound from '../components/noPostFound'
 import BlogPost from '../components/blogPost'
 import Paginator from '../components/paginator'
+import LoadingSpinner from './loadingAnimation'
+import Router from 'next/router'
 
 class Content extends Component {
     constructor() {
@@ -57,8 +59,8 @@ class Content extends Component {
     }
     async handleSearchQuery(searchQuery) {
 
-        
-        let endpoint = (searchQuery.length > 0) ? 
+
+        let endpoint = (searchQuery.length > 0) ?
             "http://localhost:3000/api/post/search/" + searchQuery :
             "http://localhost:3000/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
 
@@ -159,14 +161,14 @@ class Content extends Component {
                     width: '84%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
                     <MySearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></MySearchBar>
-                    <div style={{ width: '20%' }}></div>
+                    <div style={{ width: '0%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
                         <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>
                             {'Sort by: ' + sortState}
                             <MdArrowDropDown
                                 style={{
-                                    width:20,
+                                    width: 20,
                                     verticalAlign: 'middle',
                                     fontSize: 22,
                                 }}>
@@ -208,20 +210,19 @@ class Content extends Component {
                     style={{ margin: 'auto', marginTop: 18, width: '90%', }}>
                 </div>
 
-
-                <div id='main' style={{ width: '100%', }}>
-                    {
-                        this.state.content.length > 0 ?
-                            displayContent :
-                            <NoPostFound goHome={this.handleSearchQuery} activeTab={this.props.activeTab}>
-                            </NoPostFound>
-                    }
-                </div>
-
+                    <div id='main' style={{ width: '100%', }}>
+                        {
+                            this.state.content.length > 0 ?
+                                displayContent :
+                                <NoPostFound goHome={this.handleSearchQuery} activeTab={this.props.activeTab}>
+                                </NoPostFound>
+                        }
+                    </div>
+                
 
 
                 {
-                    this.state.content.length > 0 ?
+                    this.state.content.length > 0  ?
                         <Paginator handlePageChange={this.handlePageChange} displayedPageRange={5}
                             activePage={this.state.activePage} pageRange={Math.ceil(posts.length / 3)}>
                         </Paginator> : null
