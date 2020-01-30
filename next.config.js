@@ -3,7 +3,7 @@ const withImages = require('next-images')
 
 module.exports = withImages({
   env: {
-    host: 'furkanaydar-blog.herokuapp.com/',
+    host: 'furkanaydar-blog.herokuapp.com',
   },
   webpack: config => {
 
