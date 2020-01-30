@@ -1,8 +1,6 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
 import Head from "next/head";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
 import Header from '../components/header'
 import Styles from '../src/styles'
 import BlogPost from '../components/blogPost'
@@ -14,7 +12,7 @@ import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
 import Router from 'next/router'
 import LoadingSpinner from "../components/loadingAnimation";
-
+import Sidebar from '../components/sidebar'
 
 class CurrentPost extends React.Component {
   constructor() {
@@ -116,19 +114,26 @@ class CurrentPost extends React.Component {
     const hideComments = 'HIDE COMMENTS (' + comments.length + ')'
 
     return (
-      this.state.loading ? <LoadingSpinner></LoadingSpinner>:
-      <div style={Styles.container}>
-        <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
-        <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
+      this.state.loading ? <LoadingSpinner></LoadingSpinner> :
+        <div style={Styles.mama}>
+          <Sidebar lastComment={this.props.lastComment}
+            lastCommentTitle={this.props.lastCommentTitle}
+            lastCommentSlug={this.props.lastCommentSlug}
+            content={this.props.posts}>
+          </Sidebar>
+          <div style={{ flexGrow: 9 }}>
+            <div style={Styles.container}>
+              <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
+              <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
+              <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
 
-        <Head>
-          <title>Home</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Header></Header>
-        <div id='main' style={{ width: '100%', }}>
-          <style jsx>{`
+              <Head>
+                <title>Home</title>
+                <link rel="icon" href="/favicon.ico" />
+              </Head>
+              <Header></Header>
+              <div id='main' style={{ width: '100%', }}>
+                <style jsx>{`
             .view-comments {
                cursor: pointer;
                text-decoration: none;
@@ -168,103 +173,107 @@ class CurrentPost extends React.Component {
             
           `}</style>
 
-          <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
-            <div style={{ width: '90%', margin: 'auto', textAlign: 'left', }}>
-              <button
-                onClick={() => Router.back()}
-                className='submit-button'
-                style={Styles.homeButtonStyle}>
-                <MdKeyboardBackspace style={{ marginRight: 10, verticalAlign: 'middle' }}></MdKeyboardBackspace>
-                {'Home'}
-              </button>
+                <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
+                  <br></br>
+                  <BlogPost
+                    tags={postInfo.tags.split(',')}
+                    handleLike={this.handleLike} shortened={false}
+                    key={postInfo.id} likes={postInfo.likes}
+                    postImg={postInfo.img_url}
+                    slug={postInfo.slug} title={postInfo.title}
+                    details={postInfo.details} date={postInfo.date}>
+                  </BlogPost>
+                </div>
+
+                <div ref={(el) => { this.commentSection = el; }} onClick={this.handleShowComments} className='view-comments' style={{
+                  padding: 6, borderRadius: 8,
+                  fontFamily: 'PT Sans, serif', letterSpacing: 3,
+                  width: '48%', margin: '0 auto', textAlign: 'center', marginTop: 20
+                }}>
+
+                  <a style={{ verticalAlign: 'middle', marginRight: 12 }}>
+                    <MdChatBubbleOutline></MdChatBubbleOutline>
+                  </a>
+                  {this.state.showComments ? hideComments : showComments}
+                  <a style={{ verticalAlign: 'middle', marginLeft: 12 }}>
+                    {this.state.showComments ?
+                      <FaAngleUp></FaAngleUp> :
+                      <FaAngleDown></FaAngleDown>
+                    }
+                  </a>
+
+                </div>
+                {
+                  this.state.showComments ?
+                    <Fade big>
+                      <div id='commentSection'>
+                        {
+                          this.state.comments.slice(0, this.state.activeBorder).map((comment, i) =>
+                            <CommentBox details={comment.details}
+                              id={comment.id}
+                              date={comment.date} owner={comment.owner}>
+
+                            </CommentBox>)
+                        }
+                      </div>
+
+                      <div style={{ textAlign: 'center' }}>
+                        {
+                          this.state.comments.length > 5 ?
+                            <button
+                              onClick={this.handleExpand}
+                              className='submit-button'
+                              style={Styles.seeMoreButtonStyle}>
+                              {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
+                            </button> : null}
+                      </div>
+
+
+                    </Fade> :
+                    null
+                }
+                <div onClick={this.handleCommentFormShow}
+                  className='add-comment'
+                  id='makeCommentSection' style={Styles.addCommentButtonStyle}>
+                  <a style={{ fontSize: 28, letterSpacing: 3, }}>
+                    <FiPlusCircle style={{ marginRight: 8, verticalAlign: 'middle' }}></FiPlusCircle>
+                  </a>
+                  COMMENT
+          </div>
+                <div  >
+
+                  <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
+                </div>
+                <div ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll'
+                  style={{ marginTop: 720, float: "left", clear: "both" }}
+                >
+                </div>
+              </div>
             </div>
-            <BlogPost
-              tags={postInfo.tags.split(',')}
-              handleLike={this.handleLike} shortened={false}
-              key={postInfo.id} likes={postInfo.likes}
-              postImg={postInfo.img_url}
-              slug={postInfo.slug} title={postInfo.title}
-              details={postInfo.details} date={postInfo.date}>
-            </BlogPost>
-          </div>
-
-          <div ref={(el) => { this.commentSection = el; }} onClick={this.handleShowComments} className='view-comments' style={{
-            padding: 6, borderRadius: 8,
-            fontFamily: 'PT Sans, serif', letterSpacing: 3,
-            width: '48%', margin: '0 auto', textAlign: 'center', marginTop: 20
-          }}>
-
-            <a style={{ verticalAlign: 'middle', marginRight: 12 }}>
-              <MdChatBubbleOutline></MdChatBubbleOutline>
-            </a>
-            {this.state.showComments ? hideComments : showComments}
-            <a style={{ verticalAlign: 'middle', marginLeft: 12 }}>
-              {this.state.showComments ?
-                <FaAngleUp></FaAngleUp> :
-                <FaAngleDown></FaAngleDown>
-              }
-            </a>
-
-          </div>
-          {
-            this.state.showComments ?
-              <Fade big>
-                <div id='commentSection'>
-                  {
-                    this.state.comments.slice(0, this.state.activeBorder).map((comment, i) =>
-                      <CommentBox details={comment.details}
-                        id={comment.id}
-                        date={comment.date} owner={comment.owner}>
-
-                      </CommentBox>)
-                  }
-                </div>
-
-                <div style={{ textAlign: 'center' }}>
-                  {
-                    this.state.comments.length > 5 ?
-                      <button
-                        onClick={this.handleExpand}
-                        className='submit-button'
-                        style={Styles.seeMoreButtonStyle}>
-                        {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
-                      </button> : null}
-                </div>
-
-
-              </Fade> :
-              null
-          }
-          <div onClick={this.handleCommentFormShow}
-            className='add-comment'
-            id='makeCommentSection' style={Styles.addCommentButtonStyle}>
-            <a style={{ fontSize: 28, letterSpacing: 3, }}>
-              <FiPlusCircle style={{ marginRight: 8, verticalAlign: 'middle' }}></FiPlusCircle>
-            </a>
-            COMMENT
-          </div>
-          <div  >
-
-            <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
-          </div>
-          <div ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll'
-            style={{ marginTop: 720, float: "left", clear: "both" }}
-          >
           </div>
         </div>
-      </div>
     )
   }
 }
 
 CurrentPost.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
+  const posts_res = await fetch("http://localhost:3000/api/posts");
+  const posts_json = await posts_res.json();
+
+  console.log(posts_json)
   const res = await fetch(`http://localhost:3000/api/post/${query.postId}`);
   const comments = await fetch('http://localhost:3000/api/post/' + query.postId + '/comments')
   const json = await res.json();
   const comments_json = await comments.json();
 
-  return { post: json.post[0], comments: comments_json['comments'] };
+  const lastComment = await fetch('http://localhost:3000/api/lastComment');
+  const jsonLastComment = await lastComment.json();
+  const lastCommentPostSlug = await fetch('http://localhost:3000/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
+
+  return { posts:posts_json.posts, post: json.post[0], comments: comments_json['comments'],lastComment: jsonLastComment.lastComment, lastCommentTitle: jsonLastCommentPostSlug.postTitle,
+  lastCommentSlug: jsonLastCommentPostSlug.postSlug };
 };
 
 
