@@ -51,11 +51,11 @@ class Home extends React.Component {
 
 Home.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch("http://" + process.env.host + "/api/posts");
+  const res = await fetch("https://" + process.env.host + "/api/posts");
   const json = await res.json();
-  const lastComment = await fetch("http://" + process.env.host + '/api/lastComment');
+  const lastComment = await fetch("https://" + process.env.host + '/api/lastComment');
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch("http://" + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const lastCommentPostSlug = await fetch("https://" + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
   console.log(jsonLastCommentPostSlug)
   return {
