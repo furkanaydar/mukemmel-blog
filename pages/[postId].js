@@ -13,6 +13,7 @@ import { FiPlusCircle, FiArrowLeftCircle } from 'react-icons/fi'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
 import Router from 'next/router'
+import LoadingSpinner from "../components/loadingAnimation";
 
 
 class CurrentPost extends React.Component {
@@ -23,7 +24,8 @@ class CurrentPost extends React.Component {
       showComments: true,
       showCommentForm: false,
       comments: [],
-      activeBorder: 5
+      activeBorder: 5,
+      loading: true,
     }
     this.makeComment = React.createRef()
     this.commentSection = React.createRef()
@@ -95,7 +97,8 @@ class CurrentPost extends React.Component {
   }
   componentDidMount() {
     this.setState({
-      comments: this.props.comments.reverse()
+      comments: this.props.comments.reverse(),
+      loading: false,
     })
   }
   handleExpand() {
@@ -113,6 +116,7 @@ class CurrentPost extends React.Component {
     const hideComments = 'HIDE COMMENTS (' + comments.length + ')'
 
     return (
+      this.state.loading ? <LoadingSpinner></LoadingSpinner>:
       <div style={Styles.container}>
         <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
