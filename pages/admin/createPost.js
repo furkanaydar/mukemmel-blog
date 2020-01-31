@@ -58,7 +58,7 @@ class CreatePost extends Component {
             method: 'POST',
             body: JSON.stringify(data)
         };
-        const res = await fetch(origin + '/api/admin/createPost', settings);
+        const res = await fetch('https://furkanaydar-blog.herokuapp.com/api/admin/createPost', settings);
         const json = await res.json();
         this.setState({
             displayLoading: false
