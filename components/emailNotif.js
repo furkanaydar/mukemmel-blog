@@ -40,7 +40,7 @@ class Notification extends Component {
 
     close() {
         this.setState({
-            closed: true
+            text: 0
         })
     }
     async post() {

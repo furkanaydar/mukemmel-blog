@@ -137,7 +137,7 @@ class Sidebar extends Component {
                     <div style={{ width: '70%', margin: 'auto', marginBottom: 16, }} className={'trending'}>
                         <FaHashtag style={{ verticalAlign: 'middle', marginRight: 3 }}></FaHashtag>Javascript</div>
                     <div style={{ width: '70%', margin: 'auto', marginBottom: 16, }} className={'trending'}>
-                        <FaHashtag style={{ verticalAlign: 'middle', marginRight: 3 }}></FaHashtag>Skateboaasdasdrding</div>
+                        <FaHashtag style={{ verticalAlign: 'middle', marginRight: 3 }}></FaHashtag>Skateboarding</div>
 
 
                 </div>
