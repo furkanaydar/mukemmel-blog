@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { MdSmsFailed, MdClear } from 'react-icons/md'
 
-import Link from "next/link";
+import  Router  from 'next/router';
 
 class NoPostFound extends Component {
     constructor() {
@@ -10,7 +10,6 @@ class NoPostFound extends Component {
     }
 
     render() {
-        let goTo = this.props.activeTab == 0 ? '' : 'projects'
         return (
             <div style={{
                 margin: 'auto', textAlign: 'center', marginTop: 48,
@@ -24,7 +23,7 @@ class NoPostFound extends Component {
                   </div>
                 <div style={{ marginTop: 20, }}>
 
-                    <a onClick={() => this.props.goHome('')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                    <a onClick={() => Router.push('/')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
                         HOME
                     </a>
 

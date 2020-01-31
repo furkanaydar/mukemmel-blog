@@ -5,6 +5,7 @@ import Sidebar from '../components/sidebar'
 import LoadingSpinner from '../components/loadingAnimation';
 import absoluteUrl from 'next-absolute-url'
 import Notification from '../components/emailNotif'
+import Head from "next/head";
 
 
 class Projects extends Component {
@@ -24,6 +25,20 @@ class Projects extends Component {
             this.state.loading ?
                 <LoadingSpinner></LoadingSpinner> :
                 <div style={Styles.mama}>
+                    <Head>
+                        <script
+                            dangerouslySetInnerHTML={{
+                                            __html: `if (typeof window !== "undefined") {
+                    // hacky force https
+                    if (window.location.protocol != "https:") {
+                    window.location.href =
+                        "https:" +
+                        window.location.href.substring(window.location.protocol.length);
+                    }
+                }`
+                            }}
+                        />
+                    </Head>
 
                     <Sidebar lastComment={this.props.lastComment}
                         lastCommentTitle={this.props.lastCommentTitle}

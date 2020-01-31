@@ -121,6 +121,20 @@ class CurrentPost extends React.Component {
     return (
       this.state.loading ? <LoadingSpinner></LoadingSpinner> :
         <div style={Styles.mama}>
+          <Head>
+          <script
+      dangerouslySetInnerHTML={{
+        __html: `if (typeof window !== "undefined") {
+        // hacky force https
+        if (window.location.protocol != "https:") {
+          window.location.href =
+            "https:" +
+            window.location.href.substring(window.location.protocol.length);
+        }
+      }`
+      }}
+    />
+          </Head>
           <Sidebar lastComment={this.props.lastComment}
             lastCommentTitle={this.props.lastCommentTitle}
             lastCommentSlug={this.props.lastCommentSlug}

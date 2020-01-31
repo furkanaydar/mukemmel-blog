@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/loadingAnimation';
 import Sidebar from '../components/sidebar';
 import absoluteUrl from 'next-absolute-url'
 import Notification from '../components/emailNotif'
+import Head from "next/head";
 
 
 class AboutMePage extends Component {
@@ -28,7 +29,20 @@ class AboutMePage extends Component {
       this.state.loading ? <LoadingSpinner></LoadingSpinner> :
         <div style={Styles.mama}>
           <Notification origin={this.props.origin}></Notification>
-
+          <Head>
+          <script
+      dangerouslySetInnerHTML={{
+        __html: `if (typeof window !== "undefined") {
+        // hacky force https
+        if (window.location.protocol != "https:") {
+          window.location.href =
+            "https:" +
+            window.location.href.substring(window.location.protocol.length);
+        }
+      }`
+      }}
+    />
+          </Head>
           <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
           <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
