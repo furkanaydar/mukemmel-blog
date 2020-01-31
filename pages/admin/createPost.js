@@ -60,6 +60,7 @@ class CreatePost extends Component {
         };
         const res = await fetch(origin + '/api/admin/createPost', settings);
         const json = await res.json();
+        console('response = ' + json.status)
         this.setState({
             displayLoading: false
         })
