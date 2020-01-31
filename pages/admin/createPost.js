@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Styles from '../../src/styles'
 import BlogPost from '../../components/blogPost'
 import Router from 'next/router'
+import absoluteUrl from 'next-absolute-url'
 
 class CreatePost extends Component {
     constructor() {
@@ -40,6 +41,8 @@ class CreatePost extends Component {
     }
 
     async handleSubmit() {
+        const { origin } = absoluteUrl(req)
+
         this.setState({
             displayLoading: true
         })
@@ -55,7 +58,7 @@ class CreatePost extends Component {
             method: 'POST',
             body: JSON.stringify(data)
         };
-        const res = await fetch("https" + '://' + process.env.host + '/api/admin/createPost', settings);
+        const res = await fetch(origin + '/api/admin/createPost', settings);
         const json = await res.json();
         this.setState({
             displayLoading: false

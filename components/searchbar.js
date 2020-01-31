@@ -24,9 +24,9 @@ class MySearchBar extends Component {
         });
     }
 
-    handleSubmit() {
+    handleSubmit(origin) {
 
-        this.props.handleSearchQuery(this.state.searchQuery)
+        this.props.handleSearchQuery(this.state.searchQuery, origin)
         this.setState({
             searchQuery: ''
         })
@@ -55,7 +55,7 @@ class MySearchBar extends Component {
                         onChange={this.handleForm}
                         className='search-text' style={{ marginLeft: 4, width: '80%', border: 'none' }} type='text'>
                     </input>
-                    <a onClick={() => this.handleSubmit()}
+                    <a onClick={() => this.handleSubmit(this.props.origin)}
                         style={{ width: '10%', fontSize:'1.5vh', verticalAlign: 'middle', cursor: 'pointer', float: 'right', paddingRight: 2, paddingTop: 4 }}>
                         <GoSearch></GoSearch>
                     </a>

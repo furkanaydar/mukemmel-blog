@@ -20,6 +20,8 @@ import NoPostFound from '../components/noPostFound'
 import BlogPost from '../components/blogPost'
 import Paginator from '../components/paginator'
 import LoadingSpinner from './loadingAnimation'
+import absoluteUrl from 'next-absolute-url'
+
 
 class Content extends Component {
     constructor() {
@@ -50,18 +52,18 @@ class Content extends Component {
         })
         this.scrollToHeader();
     }
-    searchStart(searchQuery) {
+    searchStart(searchQuery, origin) {
         this.setState({
             searching: true
         })
-        this.handleSearchQuery(searchQuery)
+        this.handleSearchQuery(searchQuery, origin)
     }
-    async handleSearchQuery(searchQuery) {
-
+    async handleSearchQuery(searchQuery, origin) {
+        console.log('origin:'+origin)
 
         let endpoint = (searchQuery.length > 0) ?
-            "https" + "://" + process.env.host + "/api/post/search/" + searchQuery :
-            "https" + "://" + process.env.host + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
+            origin + "/api/post/search/" + searchQuery :
+            origin + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
 
         const res = await fetch(endpoint, {
             method: 'POST',
@@ -92,6 +94,7 @@ class Content extends Component {
         })
     }
     render() {
+
         let dropdownState = this.state.dropdownActive
         let dropdownStateClass = dropdownState ? 'dropdown-content-display' : 'dropdown-content'
         let sortState = this.state.sortBy == 0 ? 'Recent' : this.state.sortBy == 1 ? 'oldest' : 'Likes'
@@ -101,7 +104,7 @@ class Content extends Component {
 
             <div style={Styles.blogPostsContainer}>
                 {posts.slice((this.state.activePage - 1) * 3, this.state.activePage * 3).map(post => (
-                    <BlogPost type={this.state.activeTab} tags={post.tags.split(',')} likes={post.likes} shortened={true} key={post.id} slug={post.slug}
+                    <BlogPost origin={this.props.origin} type={this.state.activeTab} tags={post.tags.split(',')} likes={post.likes} shortened={true} key={post.id} slug={post.slug}
                         postImg={post.img_url} title={post.title} details={post.details} date={post.date}>
                     </BlogPost>
                 ))}
@@ -159,7 +162,7 @@ class Content extends Component {
                     display: 'flex',
                     width: '84%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
-                    <MySearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></MySearchBar>
+                    <MySearchBar activeTab={this.props.activeTab} origin={this.props.origin} handleSearchQuery={this.searchStart}></MySearchBar>
                     <div style={{ width: '18%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
@@ -192,7 +195,7 @@ class Content extends Component {
                                     this.state.searching ?
                                         'Loading...' :
                                         <div>
-                                            <a onClick={() => this.handleSearchQuery('')}
+                                            <a onClick={() => this.handleSearchQuery('', this.props.origin)}
                                                 style={{ cursor: 'pointer', verticalAlign: 'middle', marginRight: 3, }}>
                                                 <MdClear></MdClear>
                                             </a>

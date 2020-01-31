@@ -14,6 +14,8 @@ import MakeCommentForm from '../components/makeCommentForm'
 import LoadingSpinner from "../components/loadingAnimation";
 import Sidebar from '../components/sidebar'
 import Router from 'next/router'
+import absoluteUrl from 'next-absolute-url'
+
 
 class CurrentPost extends React.Component {
   constructor() {
@@ -43,7 +45,7 @@ class CurrentPost extends React.Component {
     window.location.reload();
   }
 
-  async postComment(name, details) {
+  async postComment(name, details, origin) {
     const data = {
       name: name,
       details: details,
@@ -55,7 +57,7 @@ class CurrentPost extends React.Component {
     };
     window.location.reload()
     this.scrollToCommentSection();
-    await fetch("https" + '://' + process.env.host + '/api/post/' + this.props.post.id + '/makeComment', settings);
+    await fetch(origin + '/api/post/' + this.props.post.id + '/makeComment', settings);
 
   }
 
@@ -109,6 +111,8 @@ class CurrentPost extends React.Component {
   }
 
   render() {
+    const origin = this.props.origin
+
     const postInfo = this.props.post
     const comments = this.state.comments
     const showComments = 'SHOW COMMENTS (' + comments.length + ')'
@@ -199,6 +203,7 @@ class CurrentPost extends React.Component {
                 <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
                   <br></br>
                   <BlogPost
+                    origin={this.props.origin}
                     tags={postInfo.tags.split(',')}
                     handleLike={this.handleLike} shortened={false}
                     key={postInfo.id} likes={postInfo.likes}
@@ -233,7 +238,7 @@ class CurrentPost extends React.Component {
                         {
                           this.state.comments.slice(0, this.state.activeBorder).map((comment, i) =>
                             <CommentBox details={comment.details}
-                              id={comment.id}
+                              id={comment.id} origin={origin}
                               date={comment.date} owner={comment.owner}>
 
                             </CommentBox>)
@@ -265,7 +270,7 @@ class CurrentPost extends React.Component {
           </div>
                 <div  >
 
-                  <MakeCommentForm handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
+                  <MakeCommentForm origin={origin} handleSubmit={this.postComment} visible={this.state.showCommentForm}></MakeCommentForm>
                 </div>
                 <div ref={(el) => { this.makeComment = el; }} id='dummyDivForScroll'
                   style={{ marginTop: 720, float: "left", clear: "both" }}
@@ -280,22 +285,25 @@ class CurrentPost extends React.Component {
 }
 
 CurrentPost.getInitialProps = async ({ req, query }) => {
+  const { origin } = absoluteUrl(req)
+
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const posts_res = await fetch("https" + "://" + process.env.host + "/api/posts");
+  const posts_res = await fetch(origin + "/api/posts");
   const posts_json = await posts_res.json();
 
   console.log(posts_json)
-  const res = await fetch("https"+ `://` + process.env.host + `/api/post/${query.postId}`);
-  const comments = await fetch("https" + '://' + process.env.host + '/api/post/' + query.postId + '/comments')
+  const res = await fetch(origin +  `/api/post/${query.postId}`);
+  const comments = await fetch(origin + '/api/post/' + query.postId + '/comments')
   const json = await res.json();
   const comments_json = await comments.json();
 
-  const lastComment = await fetch("https" + '://' + process.env.host + '/api/lastComment');
+  const lastComment = await fetch(origin + '/api/lastComment');
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch("https"+ '://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const lastCommentPostSlug = await fetch(origin + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
 
   return {
+    origin: origin,
     posts: posts_json.posts, post: json.post[0], comments: comments_json['comments'], lastComment: jsonLastComment.lastComment, lastCommentTitle: jsonLastCommentPostSlug.postTitle,
     lastCommentSlug: jsonLastCommentPostSlug.postSlug
   };

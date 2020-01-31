@@ -5,6 +5,7 @@ import { FiUser } from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown';
 import Fade from 'react-reveal/Fade';
+import absoluteUrl from 'next-absolute-url'
 
 class CommentBox extends Component {
     constructor() {
@@ -21,17 +22,18 @@ class CommentBox extends Component {
         })
     }
 
-    async handleDeleteComment() {
+    async handleDeleteComment(origin) {
         if(!this.state.isAdmin) {
             alert('You are not authorized.')
             return;
         }
-        const res = await fetch(`https://` + process.env.host + `/api/admin/deleteComment/` + this.props.id);
+        const res = await fetch(origin + `/api/admin/deleteComment/` + this.props.id);
         const json = await res.json();
         window.location.reload();
     }
     render() {
         const comment = this.props.details
+
         return (
             <div style={Styles.commentBox}>
                 <div style={{ display: 'flex', padding: 8, fontSize: 16, letterSpacing: 2, borderBottom: '1px solid rgba(0, 0, 0, 0.1)' }}>
@@ -60,7 +62,7 @@ class CommentBox extends Component {
                 {
                     this.state.isAdmin ?
                         <div style={{ textAlign: 'right' }}>
-                            <a onClick={this.handleDeleteComment}
+                            <a onClick={() => this.handleDeleteComment(this.props.origin)}
                                 style={{ verticalAlign: 'middle', marginRight: 20, cursor: 'pointer', fontSize: 22, }}>
                                 <FaTrash style={{ color: 'silver' }}>
                                 </FaTrash>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Styles from '../../src/styles'
 import { MdHome } from 'react-icons/md'
 import Router from 'next/router'
+import absoluteUrl from 'next-absolute-url'
 
 
 class Admin extends Component {
@@ -16,6 +17,8 @@ class Admin extends Component {
     }
 
     async handleLogin() {
+        const { origin } = absoluteUrl(req)
+
         const data = {
             username: this.state.username,
             pass: this.state.pass
@@ -24,7 +27,7 @@ class Admin extends Component {
             method: 'POST',
             body: JSON.stringify(data)
         };
-        const res = await fetch("https" +'://' + process.env.host + '/api/admin/login', settings);
+        const res = await fetch(origin + '/api/admin/login', settings);
         const admin = await res.json();
         if(admin.isAdmin) {
             localStorage.setItem('isAdmin', true)

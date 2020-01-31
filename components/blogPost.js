@@ -10,6 +10,8 @@ import Link from "next/link";
 import Fade from 'react-reveal/Fade';
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import Router from 'next/router'
+import absoluteUrl from 'next-absolute-url'
+
 
 class BlogPost extends Component {
     constructor() {
@@ -22,10 +24,11 @@ class BlogPost extends Component {
         this.handleDeletePost = this.handleDeletePost.bind(this)
     }
 
-    async handleLike() {
+    async handleLike(origin) {
+        console.log('likeorigin:'+origin)
         let slug = this.props.slug
-        await fetch("https" + '://' + process.env.host + '/api/util/' + slug);
-        const retrievePost = await fetch("https" + '://' + process.env.host + '/api/post/' + slug);
+        await fetch(origin + '/api/util/' + slug);
+        const retrievePost = await fetch(origin + '/api/post/' + slug);
         const json = await retrievePost.json();
         this.setState({
             likes: json.post[0].likes,
@@ -33,11 +36,12 @@ class BlogPost extends Component {
         })
     }
 
-    async handleDeletePost() {
+    async handleDeletePost(origin) {
+        console.log('deleteorigin:'+ origin)
         let slug = this.props.slug
-        const res = await fetch("https" + '://' + process.env.host + '/api/admin/deletePost/' + slug);
+        const res = await fetch(origin+ '/api/admin/deletePost/' + slug);
         const json = await res.json();
-        window.location.reload();
+        Router.push('/')
     }
 
     componentDidMount() {
@@ -48,6 +52,8 @@ class BlogPost extends Component {
     }
     render() {
         const ReactMarkdown = require('react-markdown/with-html')
+        const  origin  = this.props.origin
+
         const iconStyle = {
             fontSize: 20,
             verticalAlign: 'middle',
@@ -66,14 +72,14 @@ class BlogPost extends Component {
 
         const facebookShareButton =
             <div style={{ fontSize: 12, marginLeft: 8, flexGrow: 3 }}>
-                <FaFacebook className='icon' onClick={this.handleShareModal} style={{ ...iconStyle, ...iconStyleColorFacebook }}>
+                <FaFacebook className='icon' style={{ ...iconStyle, ...iconStyleColorFacebook }}>
 
                 </FaFacebook>
 
             </div>
         const twitterShareButton =
             <div style={{ fontSize: 12, marginLeft: 14, flexGrow: 3 }}>
-                <FaTwitter onClick={this.handleShareModal} style={{ ...iconStyle, ...iconStyleColorTwitter }}>
+                <FaTwitter  style={{ ...iconStyle, ...iconStyleColorTwitter }}>
                 </FaTwitter>
 
             </div>
@@ -107,7 +113,7 @@ class BlogPost extends Component {
                         {
                             this.state.isAdmin ?
                                 <div style={{ textAlign: 'right' }}>
-                                    <a onClick={this.handleDeletePost}
+                                    <a onClick={() => this.handleDeletePost(origin)}
                                         style={{ cursor: 'pointer', fontSize: 22, }}>
                                         <FaTrash style={{ color: 'silver' }}>
                                         </FaTrash>
@@ -137,7 +143,7 @@ class BlogPost extends Component {
                                 <div style={{ marginRight: 8 }}>
                                     {this.state.isLiked ?
                                         <FaHeart style={{ ...iconStyle, ...iconStyleColorHeart, }}></FaHeart> :
-                                        <FaRegHeart onClick={this.handleLike} style={{ ...iconStyle, ...iconStyleColorHeart }}></FaRegHeart>
+                                        <FaRegHeart onClick={() => this.handleLike(origin)} style={{ ...iconStyle, ...iconStyleColorHeart }}></FaRegHeart>
 
                                     }
                                     {this.state.likes}

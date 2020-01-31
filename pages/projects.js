@@ -3,6 +3,7 @@ import Content from '../components/content';
 import Styles from '../src/styles'
 import Sidebar from '../components/sidebar'
 import LoadingSpinner from '../components/loadingAnimation';
+import absoluteUrl from 'next-absolute-url'
 
 class Projects extends Component {
     constructor() {
@@ -32,7 +33,7 @@ class Projects extends Component {
                         content={this.props.posts}>
                     </Sidebar>
                     <div style={{ flexGrow: 9 }}>
-                        <Content activeTab={1} content={this.props.projects}></Content>
+                        <Content origin={this.props.origin} activeTab={1} content={this.props.projects}></Content>
                     </div>
                 </div>
 
@@ -41,16 +42,18 @@ class Projects extends Component {
 }
 
 Projects.getInitialProps = async ({ req, query }) => {
+    const { origin } = absoluteUrl(req)
+
     // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-    const res_posts = await fetch("https" + "://" + process.env.host + "/api/posts");
+    const res_posts = await fetch(origin + "/api/posts");
     const json_posts = await res_posts.json();
-    const res = await fetch("https" + "://" + process.env.host + "/api/projects");
+    const res = await fetch(origin + "/api/projects");
     const json = await res.json();
-    const lastComment = await fetch("https" + '://' + process.env.host + '/api/lastComment');
+    const lastComment = await fetch(origin + '/api/lastComment');
     const jsonLastComment = await lastComment.json();
-    const lastCommentPostSlug = await fetch("https" + '://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+    const lastCommentPostSlug = await fetch(origin + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
     const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
-    return { posts: json_posts.posts,  projects: json.projects, lastComment: jsonLastComment.lastComment, 
+    return { origin:origin, posts: json_posts.posts,  projects: json.projects, lastComment: jsonLastComment.lastComment, 
         lastCommentTitle: jsonLastCommentPostSlug.postTitle, lastCommentSlug: jsonLastCommentPostSlug.postSlug };
 };
 

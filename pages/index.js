@@ -7,6 +7,9 @@ import Styles from '../src/styles'
 import Sidebar from '../components/sidebar'
 import LoadingSpinner from "../components/loadingAnimation";
 
+import absoluteUrl from 'next-absolute-url'
+
+
 class Home extends React.Component {
   constructor() {
     super();
@@ -23,6 +26,7 @@ class Home extends React.Component {
   }
 
   render() {
+
     return (
 
       this.state.loading ? <LoadingSpinner></LoadingSpinner> :
@@ -39,7 +43,7 @@ class Home extends React.Component {
           </Sidebar>
 
           <div style={{ flexGrow: 10 }}>
-            <Content isLoading={this.state.loading} activeTab={0} content={this.props.posts}></Content>
+            <Content origin={this.props.origin} isLoading={this.state.loading} activeTab={0} content={this.props.posts}></Content>
           </div>
 
         </div>
@@ -50,15 +54,18 @@ class Home extends React.Component {
 }
 
 Home.getInitialProps = async ({ req, query }) => {
+  const { origin } = absoluteUrl(req)
+
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch("https" + "://" + process.env.host + "/api/posts");
+  const res = await fetch(origin+ "/api/posts");
   const json = await res.json();
-  const lastComment = await fetch("https" + "://" + process.env.host + '/api/lastComment');
+  const lastComment = await fetch(origin + '/api/lastComment');
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch("https" + "://" + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const lastCommentPostSlug = await fetch(origin +  '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
   console.log(jsonLastCommentPostSlug)
   return {
+    origin: origin,
     posts: json.posts, lastComment: jsonLastComment.lastComment, lastCommentTitle: jsonLastCommentPostSlug.postTitle,
     lastCommentSlug: jsonLastCommentPostSlug.postSlug
   };
