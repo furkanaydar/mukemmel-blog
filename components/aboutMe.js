@@ -69,11 +69,11 @@ class AboutMe extends Component {
                             box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
                         }
 
-                    `}</style>
+                    `}</style>                                
                     <div className='container' style={{ backgroundColor: 'whitesmoke', display: 'flex', marginBottom: 24 }}>
                         <div className='imgClass'  style={{  width: '36%', padding: 20, margin: 'auto' }}>
                             <div style={Styles.aboutMeImageContainer}>
-                                <img src="s://pbs.twimg.com/profile_images/1055915438339694592/eQEUZLLe_400x400.jpg"
+                                <img src="https://pbs.twimg.com/profile_images/1055915438339694592/eQEUZLLe_400x400.jpg"
                                     style={Styles.aboutMeImage} />
                             </div>
                             <section

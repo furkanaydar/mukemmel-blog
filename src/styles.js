@@ -39,7 +39,9 @@ const Styles = {
 
   },
   blogText: {
-    marginBottom: 32
+    marginBottom: 32,
+    fontSize:18,
+    lineHeight: 1.8,
   },
   blogTitle: {
     letterSpacing: 2.2,
