@@ -41,7 +41,7 @@ class CreatePost extends Component {
     }
 
     async handleSubmit() {
-        const { origin } = absoluteUrl(req)
+        const { origin } = this.props.origin
 
         this.setState({
             displayLoading: true
@@ -154,5 +154,17 @@ class CreatePost extends Component {
         )
     }
 }
+
+CreatePost.getInitialProps = async ({ req, query }) => {
+    const { origin } = absoluteUrl(req)
+  
+    // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
+
+  
+    return {
+      origin: origin,
+
+    };
+  };
 
 export default CreatePost
