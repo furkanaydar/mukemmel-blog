@@ -41,7 +41,7 @@ class CreatePost extends Component {
     }
 
     async handleSubmit() {
-        const { origin } = this.props.origin
+        const  origin  = this.props.origin
 
         this.setState({
             displayLoading: true
