@@ -168,7 +168,7 @@ class Content extends Component {
                 <section style={Styles.tabsSection}>
                     <Tab targetPage={0} tabId='0' tabText='POSTS' isActive={this.props.activeTab == 0}></Tab>
                     <Tab targetPage={1} tabId='1' tabText='PROJECTS' isActive={this.props.activeTab == 1}></Tab>
-                    <Tab targetPage={2} tabId='2' tabText='ABOUT ME' isActive={this.props.activeTab == 2}></Tab>
+                    <Tab targetPage={2} tabId='2' tabText='ABOUT' isActive={this.props.activeTab == 2}></Tab>
                 </section>
 
                 <section 
