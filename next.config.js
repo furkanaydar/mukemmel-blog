@@ -3,10 +3,11 @@ const withImages = require('next-images')
 
 module.exports = withImages({
   env: {
-    protocol : 'https',
+
+    protocol : process.env.protocol,
     //protocol : 'http',
-    //host : 'localhost:3000',
-    host: `furkanaydar-blog.herokuapp.com`,
+    host : 'localhost:3000',
+    //host: `furkanaydar-blog.herokuapp.com`,
   },
   webpack: config => {
 
