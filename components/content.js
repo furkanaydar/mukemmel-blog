@@ -59,7 +59,6 @@ class Content extends Component {
         this.handleSearchQuery(searchQuery, origin)
     }
     async handleSearchQuery(searchQuery, origin) {
-        console.log('origin:'+origin)
 
         let endpoint = (searchQuery.length > 0) ?
             origin + "/api/post/search/" + searchQuery :

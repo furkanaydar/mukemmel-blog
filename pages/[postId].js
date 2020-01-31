@@ -291,7 +291,6 @@ CurrentPost.getInitialProps = async ({ req, query }) => {
   const posts_res = await fetch(origin + "/api/posts");
   const posts_json = await posts_res.json();
 
-  console.log(posts_json)
   const res = await fetch(origin +  `/api/post/${query.postId}`);
   const comments = await fetch(origin + '/api/post/' + query.postId + '/comments')
   const json = await res.json();

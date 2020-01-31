@@ -4,6 +4,8 @@ import Styles from '../src/styles'
 import Sidebar from '../components/sidebar'
 import LoadingSpinner from '../components/loadingAnimation';
 import absoluteUrl from 'next-absolute-url'
+import Notification from '../components/emailNotif'
+
 
 class Projects extends Component {
     constructor() {
@@ -35,6 +37,7 @@ class Projects extends Component {
                     <div style={{ flexGrow: 9 }}>
                         <Content origin={this.props.origin} activeTab={1} content={this.props.projects}></Content>
                     </div>
+                    <Notification origin={this.props.origin}></Notification>
                 </div>
 
         )
@@ -53,8 +56,10 @@ Projects.getInitialProps = async ({ req, query }) => {
     const jsonLastComment = await lastComment.json();
     const lastCommentPostSlug = await fetch(origin + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
     const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
-    return { origin:origin, posts: json_posts.posts,  projects: json.projects, lastComment: jsonLastComment.lastComment, 
-        lastCommentTitle: jsonLastCommentPostSlug.postTitle, lastCommentSlug: jsonLastCommentPostSlug.postSlug };
+    return {
+        origin: origin, posts: json_posts.posts, projects: json.projects, lastComment: jsonLastComment.lastComment,
+        lastCommentTitle: jsonLastCommentPostSlug.postTitle, lastCommentSlug: jsonLastCommentPostSlug.postSlug
+    };
 };
 
 export default Projects
