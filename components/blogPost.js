@@ -9,7 +9,7 @@ import Tag from '../components/tag'
 import Link from "next/link";
 import Fade from 'react-reveal/Fade';
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
-import { Router } from 'next/router'
+import Router from 'next/router'
 
 class BlogPost extends Component {
     constructor() {
@@ -78,6 +78,15 @@ class BlogPost extends Component {
 
             </div>
         const tags = ['engineering', 'science']
+        const blogContent = <ReactMarkdown escapeHtml={false}
+            source={(this.props.shortened) ? this.props.details.substring(0, 240) + '...' : this.props.details} />
+
+        const linkedBlogContent = (this.props.shortened) ?
+            <div onClick={() => Router.push('/' + this.props.slug)} style={Styles.blogText}>
+                {blogContent}/>
+            </div> : 
+            blogContent
+
         return (
             <Fade big>
                 <div id='mainContainer' style={{ width: '100%' }}>
@@ -117,10 +126,7 @@ class BlogPost extends Component {
                             </Link>
                         </h1>
 
-                        <div onClick={() => Router.push('/' + this.props.slug)} style={Styles.blogText}>
-                            <ReactMarkdown escapeHtml={false}
-                                source={(this.props.shortened) ? this.props.details.substring(0, 240)+'...' : this.props.details} />
-                        </div>
+                        <linkedBlogContent></linkedBlogContent>
                         <div style={Styles.blogFooter}>
                             <div style={{ display: 'flex' }}>
                                 <div style={{ marginRight: 8 }}>
