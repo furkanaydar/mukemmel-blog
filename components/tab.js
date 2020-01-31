@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Styles from '../src/styles'
 import { FiList, FiUser, FiMap } from 'react-icons/fi'
+import Router from 'next/router'
 
-
-import Link from "next/link";
 
 
 class Tab extends Component {
@@ -35,14 +34,12 @@ class Tab extends Component {
                         cursor: pointer;
                     }
                 `}</style>
-                <Link href={targetPage}>
 
-                    <button className='tab' style={tabStyle}>
+                    <button onClick={() => Router.push(targetPage)} className='tab' style={tabStyle}>
 
                         <a style={{ padding: 0, marginRight: 8 }}>{icon}</a>
                         {this.props.tabText}
                     </button>
-                </Link>
             </div>
         )
     }

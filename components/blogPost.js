@@ -24,8 +24,8 @@ class BlogPost extends Component {
 
     async handleLike() {
         let slug = this.props.slug
-        await fetch('https://' + process.env.host + '/api/util/' + slug);
-        const retrievePost = await fetch('https://' + process.env.host + '/api/post/' + slug);
+        await fetch(process.env.protocol + '://' + process.env.host + '/api/util/' + slug);
+        const retrievePost = await fetch(process.env.protocol + '://' + process.env.host + '/api/post/' + slug);
         const json = await retrievePost.json();
         this.setState({
             likes: json.post[0].likes,
@@ -35,7 +35,7 @@ class BlogPost extends Component {
 
     async handleDeletePost() {
         let slug = this.props.slug
-        const res = await fetch('https://' + process.env.host + '/api/admin/deletePost/' + slug);
+        const res = await fetch(process.env.protocol + '://' + process.env.host + '/api/admin/deletePost/' + slug);
         const json = await res.json();
         window.location.reload();
     }
@@ -80,7 +80,7 @@ class BlogPost extends Component {
         const cursorStyle = {
             cursor: 'pointer'
         }
-        const tags = ['engineering', 'science']
+        const tags = this.props.tags
         const blogContent = <ReactMarkdown escapeHtml={false}
             source={(this.props.shortened) ? this.props.details.substring(0, 240) + '...' : this.props.details} />
 
@@ -143,14 +143,15 @@ class BlogPost extends Component {
                                     {this.state.likes}
                                 </div>
                                 <FacebookShareButton
-                                    url='furkanaydar-blog.herokuapp.com'
+                                    url={'furkanaydar-blog.herokuapp.com/' + this.props.slug}
                                     quote={'Read ' + this.props.title + ', an article by Furkan Aydar'}
                                     children={facebookShareButton} >
                                 </FacebookShareButton>
-                                <TwitterShareButton title={'Read the article: ' + this.props.title}
-                                    url='furkanaydar-blog.herokuapp.com'
+                                <TwitterShareButton title={'Read the article: ' + this.props.title
+                                    + ' at furkanaydar-blog.herokuapp.com/' + this.props.slug}
                                     hashtags={tags}
-                                    children={twitterShareButton} url='google.com'></TwitterShareButton>
+                                    children={twitterShareButton} url={'furkanaydar-blog.herokuapp.com/' + this.props.slug}
+                                ></TwitterShareButton>
 
                             </div>
                             <div style={{ flexGrow: 1 }} className='blog-date'>

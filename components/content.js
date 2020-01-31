@@ -60,8 +60,8 @@ class Content extends Component {
 
 
         let endpoint = (searchQuery.length > 0) ?
-            "https://" + process.env.host + "/api/post/search/" + searchQuery :
-            "https://"+ process.env.host + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
+            process.env.protocol + "://" + process.env.host + "/api/post/search/" + searchQuery :
+            process.env.protocol + "://" + process.env.host + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
 
         const res = await fetch(endpoint, {
             method: 'POST',
@@ -209,19 +209,19 @@ class Content extends Component {
                     style={{ margin: 'auto', marginTop: 18, width: '90%', }}>
                 </div>
 
-                    <div id='main' style={{ width: '100%', }}>
-                        {
-                            this.state.content.length > 0 ?
-                                displayContent :
-                                <NoPostFound goHome={this.handleSearchQuery} activeTab={this.props.activeTab}>
-                                </NoPostFound>
-                        }
-                    </div>
-                
+                <div id='main' style={{ width: '100%', }}>
+                    {
+                        this.state.content.length > 0 ?
+                            displayContent :
+                            <NoPostFound goHome={this.handleSearchQuery} activeTab={this.props.activeTab}>
+                            </NoPostFound>
+                    }
+                </div>
+
 
 
                 {
-                    this.state.content.length > 0  ?
+                    this.state.content.length > 0 ?
                         <Paginator handlePageChange={this.handlePageChange} displayedPageRange={5}
                             activePage={this.state.activePage} pageRange={Math.ceil(posts.length / 3)}>
                         </Paginator> : null

@@ -115,8 +115,7 @@ class Sidebar extends Component {
                         </a>
 
                         <a title={'Share the blog.'} className={'twitter'} style={{ margin: 'auto', marginBottom: 5 }}>
-                            <TwitterShareButton title={'Visit the blog of @furkanaydar'}
-                                url='furkanaydar-blog.herokuapp.com'
+                            <TwitterShareButton title={'Visit the blog of @furkanaydar, furkanaydar-blog.herokuapp.com'}
                                 children={
                                     <FaTwitter style={{ verticalAlign: 'middle' }}>
 

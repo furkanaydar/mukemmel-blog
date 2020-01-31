@@ -55,7 +55,7 @@ class CurrentPost extends React.Component {
     };
     window.location.reload()
     this.scrollToCommentSection();
-    await fetch('https://' + process.env.host + '/api/post/' + this.props.post.id + '/makeComment', settings);
+    await fetch(process.env.protocol + '://' + process.env.host + '/api/post/' + this.props.post.id + '/makeComment', settings);
 
   }
 
@@ -281,18 +281,18 @@ class CurrentPost extends React.Component {
 
 CurrentPost.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const posts_res = await fetch("https://" + process.env.host + "/api/posts");
+  const posts_res = await fetch(process.env.protocol + "://" + process.env.host + "/api/posts");
   const posts_json = await posts_res.json();
 
   console.log(posts_json)
-  const res = await fetch(`https://` + process.env.host + `/api/post/${query.postId}`);
-  const comments = await fetch('https://' + process.env.host + '/api/post/' + query.postId + '/comments')
+  const res = await fetch(process.env.protocol+ `://` + process.env.host + `/api/post/${query.postId}`);
+  const comments = await fetch(process.env.protocol + '://' + process.env.host + '/api/post/' + query.postId + '/comments')
   const json = await res.json();
   const comments_json = await comments.json();
 
-  const lastComment = await fetch('https://' + process.env.host + '/api/lastComment');
+  const lastComment = await fetch(process.env.protocol + '://' + process.env.host + '/api/lastComment');
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch('https://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const lastCommentPostSlug = await fetch(process.env.protocol+ '://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
 
   return {
