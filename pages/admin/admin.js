@@ -17,7 +17,7 @@ class Admin extends Component {
     }
 
     async handleLogin() {
-        const { origin } = absoluteUrl(req)
+        const { origin } = this.props.origin
 
         const data = {
             username: this.state.username,
@@ -81,5 +81,17 @@ class Admin extends Component {
         )
     }
 }
+
+Admin.getInitialProps = async ({ req, query }) => {
+    const { origin } = absoluteUrl(req)
+  
+    // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
+
+  
+    return {
+      origin: origin,
+
+    };
+  };
 
 export default Admin
