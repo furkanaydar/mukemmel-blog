@@ -156,7 +156,7 @@ class CreatePost extends Component {
 }
 
 CreatePost.getInitialProps = async ({ req, query }) => {
-    const { origin } = absoluteUrl(req)
+    const  origin  = absoluteUrl(req)
   
     // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
 
