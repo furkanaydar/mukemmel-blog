@@ -77,15 +77,20 @@ class BlogPost extends Component {
                 </FaTwitter>
 
             </div>
+        const cursorStyle = {
+            cursor: 'pointer'
+        }
         const tags = ['engineering', 'science']
         const blogContent = <ReactMarkdown escapeHtml={false}
             source={(this.props.shortened) ? this.props.details.substring(0, 240) + '...' : this.props.details} />
 
         const linkedBlogContent = (this.props.shortened) ?
             <div onClick={() => Router.push('/' + this.props.slug)} style={Styles.blogText}>
-                {blogContent}/>
-            </div> : 
-            blogContent
+                {blogContent}
+            </div> :
+            <div style={{...Styles.blogText, ...cursorStyle}}>
+                {blogContent}
+            </div>
 
         return (
             <Fade big>
