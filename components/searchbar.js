@@ -51,14 +51,17 @@ class MySearchBar extends Component {
                     
                 `}</style>
                 <div style={Styles.searchBar}>
-                    <input placeholder={searchType}  name='searchQuery' value={this.state.searchQuery}
+                    <input placeholder={searchType} name='searchQuery' value={this.state.searchQuery}
                         onChange={this.handleForm}
-                        className='search-text' style={{ marginLeft: 4, width: '80%', border: 'none' }} type='text'>
+                        className='search-text' style={{ marginLeft: 4, width: '84%', border: 'none' }} type='text'>
                     </input>
-                    <a onClick={() => this.handleSubmit(this.props.origin)}
-                        style={{ width: '10%', fontSize:'1.5vh', verticalAlign: 'middle', cursor: 'pointer', float: 'right', paddingRight: 2, paddingTop: 4 }}>
-                        <GoSearch></GoSearch>
-                    </a>
+                    <span onClick={() => this.handleSubmit(this.props.origin)}
+                        style={{ borderRadius:16, cursor: 'pointer', width: '10%', background: 'rgb(197, 31, 93)', padding:4, paddingRight: 8, paddingLeft: 8, }}>
+                        <a
+                            style={{ color:'white', right: 0, fontSize: '1.7vh', verticalAlign: 'middle', cursor: 'pointer', }}>
+                            <GoSearch></GoSearch>
+                        </a>
+                    </span>
                 </div>
             </div>
         )

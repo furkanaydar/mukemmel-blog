@@ -127,7 +127,7 @@ class Content extends Component {
                 position: absolute;
                 margin-top: 8px;
                 background-color: #f9f9f9;
-                min-width: 150px;
+                min-width: 20vw;
                 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
                 z-index: 1;
               }
@@ -138,6 +138,20 @@ class Content extends Component {
     
     
               }
+
+              .searchSection {
+                display: flex;
+              }
+              
+              @media screen and (max-width: 1000px) {
+                .searchSection {
+                  display: block;
+                  text-align: center;
+                }
+                .dropdownContainer {
+                    margin-top:12px;
+                }
+            }
             `}</style>
 
                 <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
@@ -157,13 +171,14 @@ class Content extends Component {
                     <Tab targetPage={2} tabId='2' tabText='ABOUT ME' isActive={this.props.activeTab == 2}></Tab>
                 </section>
 
-                <section style={{
-                    display: 'flex',
+                <section 
+                    className='searchSection'
+                    style={{
                     width: '84%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
                     <MySearchBar activeTab={this.props.activeTab} origin={this.props.origin} handleSearchQuery={this.searchStart}></MySearchBar>
-                    <div style={{ width: '18%' }}></div>
-                    <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
+                    <div style={{flexGrow:2,}}></div>
+                    <div className='dropdownContainer' onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
                         <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>
                             {'Sort by: ' + sortState}

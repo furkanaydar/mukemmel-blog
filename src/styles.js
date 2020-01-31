@@ -199,19 +199,20 @@ const Styles = {
   },
 
   searchBarContainer: {
-    width: '50%',
+    flexGrow:2.6,
+
   },
   searchBar: {
-    width: '90%',
     letterSpacing: 1.4,
     borderRadius: 12,
     border: '1px solid rgba(0, 0, 0, 0.16)',
     padding: 8,
+    paddingRight:1,
     paddingLeft: 10,
     fontFamily: 'PT Sans, serif',
   },
   dropdownContainer: {
-    width:'30%',
+    flexGrow:3,
     cursor: 'pointer',
   },
   dropdown: {
