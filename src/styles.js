@@ -200,7 +200,7 @@ const Styles = {
     width: '50%',
   },
   searchBar: {
-    width: '80%',
+    width: '90%',
     letterSpacing: 1.4,
     borderRadius: 12,
     border: '1px solid rgba(0, 0, 0, 0.16)',
@@ -305,14 +305,14 @@ const Styles = {
     fontWeight: 'bolder',
     padding: 4,
     borderRadius: 6,
-    fontSize: 12,
+    fontSize: '1.5vh',
     border: '1px solid #001f3f',
     fontFamily: 'PT Sans, serif',
   },
 
   addCommentButtonStyle: {
     fontFamily: 'PT Sans, serif', 
-    width: '72%', 
+    width: '72%',
     margin: 'auto', 
     textAlign: 'center',
     marginTop: 20  

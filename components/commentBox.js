@@ -26,7 +26,7 @@ class CommentBox extends Component {
             alert('You are not authorized.')
             return;
         }
-        const res = await fetch(`http://localhost:3000/api/admin/deleteComment/` + this.props.id);
+        const res = await fetch(`https://` + process.env.host + `/api/admin/deleteComment/` + this.props.id);
         const json = await res.json();
         window.location.reload();
     }

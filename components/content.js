@@ -60,8 +60,8 @@ class Content extends Component {
 
 
         let endpoint = (searchQuery.length > 0) ?
-            "http://localhost:3000/api/post/search/" + searchQuery :
-            "http://localhost:3000/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
+            "https://" + process.env.host + "/api/post/search/" + searchQuery :
+            "https://"+ process.env.host + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
 
         const res = await fetch(endpoint, {
             method: 'POST',
@@ -160,7 +160,7 @@ class Content extends Component {
                     width: '84%', margin: 'auto', marginTop: 32, paddingTop: 20, marginBottom: 12, borderTop: '1px solid rgba(0, 0, 0, 0.1)',
                 }}>
                     <MySearchBar activeTab={this.props.activeTab} handleSearchQuery={this.searchStart}></MySearchBar>
-                    <div style={{ width: '20%' }}></div>
+                    <div style={{ width: '18%' }}></div>
                     <div onClick={() => this.setState({ dropdownActive: !dropdownState })}
                         style={Styles.dropdownContainer}>
                         <div id='asdasdasd' className='dropdown' style={Styles.dropdown}>

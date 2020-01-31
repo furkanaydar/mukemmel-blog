@@ -56,7 +56,7 @@ class MySearchBar extends Component {
                         className='search-text' style={{ marginLeft: 4, width: '80%', border: 'none' }} type='text'>
                     </input>
                     <a onClick={() => this.handleSubmit()}
-                        style={{ width: '10%', verticalAlign: 'middle', cursor: 'pointer', float: 'right', paddingRight: 2, paddingTop: 4 }}>
+                        style={{ width: '10%', fontSize:'1.5vh', verticalAlign: 'middle', cursor: 'pointer', float: 'right', paddingRight: 2, paddingTop: 4 }}>
                         <GoSearch></GoSearch>
                     </a>
                 </div>

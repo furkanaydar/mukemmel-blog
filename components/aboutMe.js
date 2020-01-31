@@ -73,7 +73,7 @@ class AboutMe extends Component {
                     <div className='container' style={{ backgroundColor: 'whitesmoke', display: 'flex', marginBottom: 24 }}>
                         <div className='imgClass'  style={{  width: '36%', padding: 20, margin: 'auto' }}>
                             <div style={Styles.aboutMeImageContainer}>
-                                <img src="https://pbs.twimg.com/profile_images/1055915438339694592/eQEUZLLe_400x400.jpg"
+                                <img src="s://pbs.twimg.com/profile_images/1055915438339694592/eQEUZLLe_400x400.jpg"
                                     style={Styles.aboutMeImage} />
                             </div>
                             <section

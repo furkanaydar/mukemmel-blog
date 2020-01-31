@@ -23,8 +23,8 @@ class BlogPost extends Component {
 
     async handleLike() {
         let slug = this.props.slug
-        await fetch('http://localhost:3000/api/util/' + slug);
-        const retrievePost = await fetch('http://localhost:3000/api/post/' + slug);
+        await fetch('https://' + process.env.host + '/api/util/' + slug);
+        const retrievePost = await fetch('https://' + process.env.host + '/api/post/' + slug);
         const json = await retrievePost.json();
         this.setState({
             likes: json.post[0].likes,
@@ -34,7 +34,7 @@ class BlogPost extends Component {
 
     async handleDeletePost() {
         let slug = this.props.slug
-        const res = await fetch('http://localhost:3000/api/admin/deletePost/' + slug);
+        const res = await fetch('https://' + process.env.host + '/api/admin/deletePost/' + slug);
         const json = await res.json();
         window.location.reload();
     }

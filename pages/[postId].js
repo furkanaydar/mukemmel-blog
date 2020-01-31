@@ -4,10 +4,11 @@ import Head from "next/head";
 import Header from '../components/header'
 import Styles from '../src/styles'
 import BlogPost from '../components/blogPost'
-import { MdChatBubbleOutline} from 'react-icons/md'
+import { MdChatBubbleOutline } from 'react-icons/md'
 import CommentBox from '../components/commentBox'
 import { FaAngleDown, FaAngleUp, } from 'react-icons/fa'
-import { FiPlusCircle} from 'react-icons/fi'
+import { FiPlusCircle } from 'react-icons/fi'
+import { AiOutlineHome } from 'react-icons/ai'
 import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
 import LoadingSpinner from "../components/loadingAnimation";
@@ -53,7 +54,7 @@ class CurrentPost extends React.Component {
     };
     window.location.reload()
     this.scrollToCommentSection();
-    await fetch(`http://localhost:3000/api/post/` + this.props.post.id + '/makeComment', settings);
+    await fetch('https://' + process.env.host + '/api/post/' + this.props.post.id + '/makeComment', settings);
 
   }
 
@@ -133,45 +134,67 @@ class CurrentPost extends React.Component {
               <Header></Header>
               <div id='main' style={{ width: '100%', }}>
                 <style jsx>{`
-            .view-comments {
-               cursor: pointer;
-               text-decoration: none;
-            }
-            .view-comments:hover {
-              text-decoration:underline;
+                  .view-comments {
+                    cursor: pointer;
+                    text-decoration: none;
+                  }
+                  .view-comments:hover {
+                    text-decoration:underline;
 
-            }
-            .add-comment:hover {
-              text-decoration:underline;
-              cursor: pointer;
-            }
-            .prev {
-              color:red;
-            }
-            .submit-button {
-              cursor: pointer;
-              background:none;
-              transition: 0.2s;
-              color:#001f3f;
-          }
-          .submit-button:hover {
-              background-color:#001f3f;
-              color: white;
-          }
-          .submit-button {
-              outline: none;
-              border: none;
-          }
-          .back-icon {
-            background-color: none;
-            color: red;
-          }
-          .back-icon:hover {
-            background-color: lightblue;
-          }
-            
-          `}</style>
+                  }
+                  .add-comment:hover {
+                    text-decoration:underline;
+                    cursor: pointer;
+                  }
+                  .prev {
+                    color:red;
+                  }
+                  .submit-button {
+                    cursor: pointer;
+                    background:none;
+                    transition: 0.2s;
+                    color:#001f3f;
+                  }
+                  .submit-button:hover {
+                      background-color:#001f3f;
+                      color: white;
+                  }
+                  .submit-button {
+                      outline: none;
+                      border: none;
+                  }
+                  .back-icon {
+                    background-color: none;
+                    color: red;
+                  }
+                  .back-icon:hover {
+                    background-color: lightblue;
+                  }
+                  .home{
+                    display: none;
+                    cursor: pointer;
+                    font-size: 24px;
+                    border-radius: 28px;
+                    padding: 10px;
+                    color: white;
+                    padding-right: 12px;
+                    padding-left: 12px;
+                    background:#ebb8a7;
 
+                    }  
+                    @media screen and (max-width: 1000px) {
+                      .home {
+                        display: block;
+                        width: 100px;
+                        text-align: center;
+                      }
+                  }
+              
+                `}</style>
+                <a onClick={() => Router.push('/')}
+                  title={'Go Home.'} className={'home'} style={{ margin: 'auto', marginBottom: 5, marginTop:32,  }}>
+                  <AiOutlineHome style={{ verticalAlign: 'middle' }}></AiOutlineHome>
+                </a>
                 <div ref={(el) => { this.post = el; }} style={Styles.blogPostsContainer}>
                   <br></br>
                   <BlogPost
@@ -262,17 +285,19 @@ CurrentPost.getInitialProps = async ({ req, query }) => {
 
   console.log(posts_json)
   const res = await fetch(`https://` + process.env.host + `/api/post/${query.postId}`);
-  const comments = await fetch('http://' + process.env.host + '/api/post/' + query.postId + '/comments')
+  const comments = await fetch('https://' + process.env.host + '/api/post/' + query.postId + '/comments')
   const json = await res.json();
   const comments_json = await comments.json();
 
-  const lastComment = await fetch('https://' + process.env.host +'/api/lastComment');
+  const lastComment = await fetch('https://' + process.env.host + '/api/lastComment');
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch('https://'+process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+  const lastCommentPostSlug = await fetch('https://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
 
-  return { posts:posts_json.posts, post: json.post[0], comments: comments_json['comments'],lastComment: jsonLastComment.lastComment, lastCommentTitle: jsonLastCommentPostSlug.postTitle,
-  lastCommentSlug: jsonLastCommentPostSlug.postSlug };
+  return {
+    posts: posts_json.posts, post: json.post[0], comments: comments_json['comments'], lastComment: jsonLastComment.lastComment, lastCommentTitle: jsonLastCommentPostSlug.postTitle,
+    lastCommentSlug: jsonLastCommentPostSlug.postSlug
+  };
 };
 
 
