@@ -25,7 +25,6 @@ class BlogPost extends Component {
     }
 
     async handleLike(origin) {
-        console.log('likeorigin:'+origin)
         let slug = this.props.slug
         await fetch(origin + '/api/util/' + slug);
         const retrievePost = await fetch(origin + '/api/post/' + slug);
@@ -37,10 +36,10 @@ class BlogPost extends Component {
     }
 
     async handleDeletePost(origin) {
-        console.log('deleteorigin:'+ origin)
         let slug = this.props.slug
         const res = await fetch(origin+ '/api/admin/deletePost/' + slug);
         const json = await res.json();
+        window.location.reload();
         Router.push('/')
     }
 
