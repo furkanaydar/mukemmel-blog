@@ -85,10 +85,10 @@ class BlogPost extends Component {
             source={(this.props.shortened) ? this.props.details.substring(0, 240) + '...' : this.props.details} />
 
         const linkedBlogContent = (this.props.shortened) ?
-            <div onClick={() => Router.push('/' + this.props.slug)} style={Styles.blogText}>
+            <div onClick={() => Router.push('/' + this.props.slug)} style={{...Styles.blogText, ...cursorStyle}}>
                 {blogContent}
             </div> :
-            <div style={{...Styles.blogText, ...cursorStyle}}>
+            <div style={Styles.blogText}>
                 {blogContent}
             </div>
 
