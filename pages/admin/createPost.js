@@ -55,7 +55,7 @@ class CreatePost extends Component {
             method: 'POST',
             body: JSON.stringify(data)
         };
-        const res = await fetch(process.env.protocol + '://' + process.env.host + '/api/admin/createPost', settings);
+        const res = await fetch("https" + '://' + process.env.host + '/api/admin/createPost', settings);
         const json = await res.json();
         this.setState({
             displayLoading: false

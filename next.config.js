@@ -4,7 +4,7 @@ const withImages = require('next-images')
 module.exports = withImages({
   env: {
 
-    protocol : process.env.protocol,
+    protocol : "https",
     //protocol : 'http',
     host : 'localhost:3000',
     //host: `furkanaydar-blog.herokuapp.com`,
