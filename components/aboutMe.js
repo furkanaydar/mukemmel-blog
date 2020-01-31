@@ -2,27 +2,31 @@ import React, { Component } from 'react'
 
 import Styles from '../src/styles'
 
-import { FaRegHeart, FaShare } from 'react-icons/fa'
-import { TiCalendarOutline } from 'react-icons/ti'
-
-import Tag from '../components/tag'
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
 import Fade from 'react-reveal/Fade';
 
 import { MdMailOutline } from 'react-icons/md'
-import { FaTwitter, FaGithubAlt, FaLinkedinIn, FaInstagram } from 'react-icons/fa'
+import {  FaGithubAlt, FaLinkedinIn,  } from 'react-icons/fa'
 
 
 class AboutMe extends Component {
     constructor() {
         super();
         this.state = {
-
+            modal: false
         }
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+    openModal() {
+        this.setState({ modalIsOpen: true });
     }
 
+    closeModal() {
+        this.setState({ modalIsOpen: false });
+    }
     render() {
         const iconStyle = {
             fontSize: 20,
@@ -37,11 +41,12 @@ class AboutMe extends Component {
         return (
             <Fade big>
                 <div style={{ margin: 'auto' }}>
-                    
-                <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
+
+                    <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
 
                     <style jsx>{`
                         .icon {
+                            color: black;
                         }
                         .icon:hover {
                             color: darkblue;
@@ -73,9 +78,10 @@ class AboutMe extends Component {
                             box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
                         }
 
-                    `}</style>                                
+                    `}</style>
+
                     <div className='container' style={{ backgroundColor: 'whitesmoke', display: 'flex', marginBottom: 24 }}>
-                        <div className='imgClass'  style={{  width: '36%', padding: 20, margin: 'auto' }}>
+                        <div className='imgClass' style={{ width: '36%', padding: 20, margin: 'auto' }}>
                             <div style={Styles.aboutMeImageContainer}>
                                 <img src="https://pbs.twimg.com/profile_images/1055915438339694592/eQEUZLLe_400x400.jpg"
                                     style={Styles.aboutMeImage} />
@@ -83,9 +89,9 @@ class AboutMe extends Component {
                             <section
                                 className={'iconbox'}
                                 style={{ border: '1px solid rgba(0, 0, 0, 0.1)', fontSize: 18, textAlign: 'center', padding: 8, marginTop: 10 }}>
-                                <i className='icon' style={{ marginRight: 24 }}><MdMailOutline ></MdMailOutline></i>
-                                <i className='icon' style={{ marginRight: 24 }}><FaLinkedinIn  ></FaLinkedinIn></i>
-                                <i className='icon' ><FaGithubAlt ></FaGithubAlt> </i>
+                                <a title='mailing will be added.' className='icon' style={{ marginRight: 24 }}><MdMailOutline ></MdMailOutline></a>
+                                <a href={'https://www.linkedin.com/in/furkan-aydar-916949173'} className='icon' style={{ marginRight: 24 }}><FaLinkedinIn  ></FaLinkedinIn></a>
+                                <a href={'https://github.com/furkanaydar'} className='icon' ><FaGithubAlt ></FaGithubAlt> </a>
                             </section>
                         </div>
                         <p className={'p1'} style={{ width: '64%', padding: 20, }}>
