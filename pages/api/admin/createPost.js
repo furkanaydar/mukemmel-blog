@@ -3,7 +3,6 @@ const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
     const obj = JSON.parse(req.body);
-    console.log('obj=' + obj.title)
     const query = await db.query(escape`
         INSERT INTO posts (title, slug, details, img_url, type, tags)
         VALUES (${obj.title}, ${obj.slug}, ${obj.details}, ${obj.img_url},  ${obj.type}, ${obj.tags})
