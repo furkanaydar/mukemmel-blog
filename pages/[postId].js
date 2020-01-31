@@ -13,6 +13,7 @@ import Fade from 'react-reveal/Fade';
 import MakeCommentForm from '../components/makeCommentForm'
 import LoadingSpinner from "../components/loadingAnimation";
 import Sidebar from '../components/sidebar'
+import Router from 'next/router'
 
 class CurrentPost extends React.Component {
   constructor() {
