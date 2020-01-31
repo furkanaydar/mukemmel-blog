@@ -85,7 +85,7 @@ class BlogPost extends Component {
             source={(this.props.shortened) ? this.props.details.substring(0, 240) + '...' : this.props.details} />
 
         const linkedBlogContent = (this.props.shortened) ?
-            <div onClick={() => Router.push('/' + this.props.slug)} style={{...Styles.blogText, ...cursorStyle}}>
+            <div onClick={() => Router.push('/' + this.props.slug)} style={{ ...Styles.blogText, ...cursorStyle }}>
                 {blogContent}
             </div> :
             <div style={Styles.blogText}>
@@ -143,11 +143,12 @@ class BlogPost extends Component {
                                     {this.state.likes}
                                 </div>
                                 <FacebookShareButton
+                                    url='furkanaydar-blog.herokuapp.com'
                                     quote={'Read ' + this.props.title + ', an article by Furkan Aydar'}
-                                    children={facebookShareButton} url='google.com'>
+                                    children={facebookShareButton} >
                                 </FacebookShareButton>
                                 <TwitterShareButton title={'Read the article: ' + this.props.title}
-                                    via='furkanaydar.com'
+                                    url='furkanaydar-blog.herokuapp.com'
                                     hashtags={tags}
                                     children={twitterShareButton} url='google.com'></TwitterShareButton>
 

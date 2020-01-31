@@ -110,13 +110,13 @@ class Sidebar extends Component {
                                 children={
                                     <FaFacebookF style={{ verticalAlign: 'middle' }}></FaFacebookF>
                                 }
-                                url='www.furkanaydar.com'>
+                                url='furkanaydar-blog.herokuapp.com'>
                             </FacebookShareButton>
                         </a>
 
                         <a title={'Share the blog.'} className={'twitter'} style={{ margin: 'auto', marginBottom: 5 }}>
                             <TwitterShareButton title={'Visit the blog of @furkanaydar'}
-                                via='furkanaydar.com'
+                                url='furkanaydar-blog.herokuapp.com'
                                 children={
                                     <FaTwitter style={{ verticalAlign: 'middle' }}>
 
