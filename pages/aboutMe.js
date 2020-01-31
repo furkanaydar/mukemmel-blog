@@ -59,11 +59,11 @@ class AboutMePage extends Component {
 
 AboutMePage.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res_posts = await fetch(location.protocol + `://` + process.env.host + `/api/posts`);
+  const res_posts = await fetch(window.location.protocol + `://` + process.env.host + `/api/posts`);
   const json_posts = await res_posts.json();
-  const lastComment = await fetch(location.protocol + `://` + process.env.host + `/api/lastComment`);
+  const lastComment = await fetch(window.location.protocol + `://` + process.env.host + `/api/lastComment`);
   const jsonLastComment = await lastComment.json();
-  const lastCommentPostSlug = await fetch(location.protocol + `://` + process.env.host +`/api/post/` + jsonLastComment.lastComment.post_id + `/postSlug`);
+  const lastCommentPostSlug = await fetch(window.location.protocol + `://` + process.env.host +`/api/post/` + jsonLastComment.lastComment.post_id + `/postSlug`);
   const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
   return {
     posts: json_posts.posts, lastComment: jsonLastComment.lastComment,

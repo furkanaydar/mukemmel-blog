@@ -42,13 +42,13 @@ class Projects extends Component {
 
 Projects.getInitialProps = async ({ req, query }) => {
     // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-    const res_posts = await fetch(location.protocol + "://" + process.env.host + "/api/posts");
+    const res_posts = await fetch(window.location.protocol + "://" + process.env.host + "/api/posts");
     const json_posts = await res_posts.json();
-    const res = await fetch(location.protocol + "://" + process.env.host + "/api/projects");
+    const res = await fetch(window.location.protocol + "://" + process.env.host + "/api/projects");
     const json = await res.json();
-    const lastComment = await fetch(location.protocol + '://' + process.env.host + '/api/lastComment');
+    const lastComment = await fetch(window.location.protocol + '://' + process.env.host + '/api/lastComment');
     const jsonLastComment = await lastComment.json();
-    const lastCommentPostSlug = await fetch(location.protocol + '://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
+    const lastCommentPostSlug = await fetch(window.location.protocol + '://' + process.env.host + '/api/post/' + jsonLastComment.lastComment.post_id + '/postSlug');
     const jsonLastCommentPostSlug = await lastCommentPostSlug.json();
     return { posts: json_posts.posts,  projects: json.projects, lastComment: jsonLastComment.lastComment, 
         lastCommentTitle: jsonLastCommentPostSlug.postTitle, lastCommentSlug: jsonLastCommentPostSlug.postSlug };

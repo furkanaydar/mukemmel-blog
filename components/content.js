@@ -60,8 +60,8 @@ class Content extends Component {
 
 
         let endpoint = (searchQuery.length > 0) ?
-            location.protocol + "://" + process.env.host + "/api/post/search/" + searchQuery :
-            location.protocol + "://" + process.env.host + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
+            window.location.protocol + "://" + process.env.host + "/api/post/search/" + searchQuery :
+            window.location.protocol + "://" + process.env.host + "/api/" + ((this.props.activeTab == 0) ? 'posts' : 'projects')
 
         const res = await fetch(endpoint, {
             method: 'POST',
