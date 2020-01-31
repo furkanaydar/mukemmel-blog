@@ -34,7 +34,7 @@ class Sidebar extends Component {
                 minWidth: '22%',
                 maxWidth: '22%',
                 textAlign: 'center', fontFamily: 'Gelasio, serif', flexGrow: 1,
-                background: localStorage.getItem('theme') ? 'white' : '#506680',
+                background: 'white',
                 paddingRight: 36, paddingLeft: 18, paddingTop: 18, borderRight: '1px solid rgba(0, 0, 0, 0.1)', marginTop: 64, fontSize: 14,
                 fontWeight: 'lighter',
             }}>
