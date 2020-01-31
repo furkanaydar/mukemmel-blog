@@ -40,7 +40,7 @@ const Styles = {
   },
   blogText: {
     marginBottom: 32,
-    fontSize:18,
+    fontSize:16,
     lineHeight: 1.8,
   },
   blogTitle: {
