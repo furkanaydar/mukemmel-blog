@@ -24,7 +24,7 @@ class Admin extends Component {
             method: 'POST',
             body: JSON.stringify(data)
         };
-        const res = await fetch('https://' + process.env.host + '/api/admin/login`, settings);
+        const res = await fetch('https://' + process.env.host + '/api/admin/login', settings);
         const admin = await res.json();
         if(admin.isAdmin) {
             localStorage.setItem('isAdmin', true)
