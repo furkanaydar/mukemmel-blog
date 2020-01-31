@@ -37,6 +37,9 @@ class AboutMe extends Component {
         return (
             <Fade big>
                 <div style={{ margin: 'auto' }}>
+                    
+                <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
+
                     <style jsx>{`
                         .icon {
                         }
@@ -63,6 +66,7 @@ class AboutMe extends Component {
                         }
                         .container {
                             transition: 0.1s;
+                            font-family: Gelasio, serif;
                             border: 1px solid rgba(0, 0, 0, 0.1);
                         }
                         .container:hover {
@@ -105,8 +109,9 @@ class AboutMe extends Component {
                         <h1 style={{ letterSpacing: 2, fontWeight: 'lighter', borderBottom: '1px solid rgba(0, 0, 0, 0.1)', }}>Why I started this blog?</h1>
                         <p style={{ fontSize: 18, paddingLeft: 8 }}>
                             I created this blog for the contest organized by @SelmanKahya. He is a youtuber/inspiring software
-                            engineer working at Uber. Creating a blog while learning new tech stack was an appealing idea
-                            to me. Besides the competition, I will keep sharing my thoughts through this blog.
+                            engineer working at Uber. Creating a blog while learning NextJS was an appealing idea
+                            to me. After the competition, I will keep sharing my experiences through this blog and keep
+                            improving the site.
                             <br></br><br></br>
                             Please feel free to mail me, or to share your thoughts under post comments!
                         </p>

@@ -18,11 +18,13 @@ class BlogPost extends Component {
         super();
         this.state = {
             isLiked: false,
-            showComments: false
+            showComments: false,
         }
         this.handleLike = this.handleLike.bind(this)
         this.handleDeletePost = this.handleDeletePost.bind(this)
+
     }
+
 
     async handleLike(origin) {
         let slug = this.props.slug
@@ -37,7 +39,7 @@ class BlogPost extends Component {
 
     async handleDeletePost(origin) {
         let slug = this.props.slug
-        const res = await fetch(origin+ '/api/admin/deletePost/' + slug);
+        const res = await fetch(origin + '/api/admin/deletePost/' + slug);
         const json = await res.json();
         window.location.reload();
         Router.push('/')
@@ -51,7 +53,7 @@ class BlogPost extends Component {
     }
     render() {
         const ReactMarkdown = require('react-markdown/with-html')
-        const  origin  = this.props.origin
+        const origin = this.props.origin
 
         const iconStyle = {
             fontSize: 20,
@@ -78,7 +80,7 @@ class BlogPost extends Component {
             </div>
         const twitterShareButton =
             <div style={{ fontSize: 12, marginLeft: 14, flexGrow: 3 }}>
-                <FaTwitter  style={{ ...iconStyle, ...iconStyleColorTwitter }}>
+                <FaTwitter style={{ ...iconStyle, ...iconStyleColorTwitter }}>
                 </FaTwitter>
 
             </div>
@@ -93,7 +95,7 @@ class BlogPost extends Component {
             <div onClick={() => Router.push('/' + this.props.slug)} style={{ ...Styles.blogText, ...cursorStyle }}>
                 {blogContent}
             </div> :
-            <div style={Styles.blogText}>
+            <div ref={this.blogText} style={Styles.blogText}>
                 {blogContent}
             </div>
 

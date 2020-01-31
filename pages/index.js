@@ -30,10 +30,7 @@ class Home extends React.Component {
 
       this.state.loading ? <LoadingSpinner></LoadingSpinner> :
         <div style={Styles.mama}>
-          <link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet"></link>
-          <link href="https://fonts.googleapis.com/css?family=Domine|EB+Garamond&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Crimson+Text&display=swap" rel="stylesheet" />
+
 
           <Sidebar 
             lastComment={this.props.lastComment}

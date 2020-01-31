@@ -95,7 +95,7 @@ class Notification extends Component {
                 <div>
                     <span>
                         <input value={this.state.mail} onChange={this.handleForm} name='mail' placeholder={'your email'} type='text' style={{
-                            outline: 'none', width: '60%', marginLeft: 14, fontFamily: 'PT Sans, serif', padding: 4, borderRadius: 6,
+                            outline: 'none', width: '72%', marginLeft: 14, fontFamily: 'PT Sans, serif', padding: 4, borderRadius: 6,
                             border: '2 px solid white'
                         }}></input>
                     </span>
@@ -120,7 +120,7 @@ class Notification extends Component {
                         display: this.state.closed ? 'none' : 'block',
                         boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
                         fontFamily: 'Gelasio, serif', backgroundColor: '#c51f5d', color: 'white', position: 'fixed', padding: 10,
-                        paddingBottom: 20, paddingLeft: 14, borderRadius: 12, right: 20, top: 20, width: 420, fontSize: 14,
+                        paddingBottom: 20, paddingLeft: 14, borderRadius: 12, right: 20, top: 20, width: 240, fontSize: 14,
                     }}>
                         <div style={{ textAlign: 'right', marginBottom: 9, }}>
                             <FaWindowClose onClick={this.close} style={{ cursor: 'pointer', verticalAlign: 'middle' }}></FaWindowClose>

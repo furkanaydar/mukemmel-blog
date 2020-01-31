@@ -11,6 +11,7 @@ import { FiUser, FiHome } from 'react-icons/fi'
 import Link from "next/link";
 import Router from 'next/router'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
+import ReactMarkdown from 'react-markdown'
 
 
 class Sidebar extends Component {
@@ -25,7 +26,9 @@ class Sidebar extends Component {
     }
     render() {
         let posts = sortByChoice(this.props.content.slice(0, 5), 2)
-
+        let lastCommentDet = 
+        "'" + this.props.lastComment.details.substring(0, 210) +
+        "...'"
         return (
 
 
@@ -156,9 +159,12 @@ class Sidebar extends Component {
                                 borderRadius: 10, fontWeight: 'lighter', fontFamily: 'PT Sans, serif', fontSize: '13px',
                                 lineHeight: 1.8,
                             }}>
-                                "{this.props.lastComment.details.substring(0, 210)}
-                                {this.props.lastComment.details.length > 210 ? '...' : null}
-                                "
+                                <ReactMarkdown
+                                source={
+                                    lastCommentDet
+                                }>
+
+                                </ReactMarkdown>
                                 <p style={{ padding: 2, textAlign: 'center', fontSize: '11.5px' }}>
                                     <FiUser style={{ marginRight: 4, verticalAlign: 'middle' }}></FiUser>
                                     {this.props.lastComment.owner}
