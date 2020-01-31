@@ -126,7 +126,7 @@ class BlogPost extends Component {
                             </Link>
                         </h1>
 
-                        <linkedBlogContent></linkedBlogContent>
+                        {linkedBlogContent}
                         <div style={Styles.blogFooter}>
                             <div style={{ display: 'flex' }}>
                                 <div style={{ marginRight: 8 }}>
