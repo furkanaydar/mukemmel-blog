@@ -21,13 +21,7 @@ class NoPostFound extends Component {
                 <div>
                     No posts found.
                   </div>
-                <div style={{ marginTop: 20, }}>
 
-                    <a onClick={() => Router.push('/')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                        HOME
-                    </a>
-
-                </div>
             </div>
         )
     }
