@@ -27,6 +27,8 @@ gibi görünüyor.
 6. Güncel host dinamik şekilde kullanılıyor.
 7. Şifre korumalı admin girişi eklendi. Admin için yazı ekleme arayüzü, yazıyı previewlama arayüzü,
 yazı ve yorumları silme özelliği eklendi. //TODO resimlerini buraya ekle
+<a href="https://ibb.co/47hShGX"><img src="https://i.ibb.co/Xbc5cgK/111.jpg" alt="111" border="0"></a>
+<a href="https://ibb.co/KmgLQhY"><img src="https://i.ibb.co/XVP3dL9/111.jpg" alt="111" border="0"></a>
 8. Veritabanı eklendi. (serverless-mysql). Yorumlar, email aboneleri, içerikler ve admin bilgileri
 tutuluyor.
 9. Yorum yapılabiliyor, içerikler beğenilebiliyor.
