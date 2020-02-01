@@ -1,4 +1,4 @@
-## Blog Adresi -> [furkanaydar's blog](furkanaydar-blog.herokuapp.com)
+## Blog Adresi -> [furkanaydar's blog](https://furkanaydar-blog.herokuapp.com)
 
 
 ## YARIŞMA METNİ
