@@ -35,7 +35,8 @@ tutuluyor.
 10. İçeriklere etiketler eklendi.
 11. İçerikler beğeni sayısına veya tarihe göre sıralanabiliyor.
 12. İçerikler etiketlerine, başlıklarına veya detaylarına göre search edilebiliyor.
-13. Popular topics, popular posts ve last comment bilgileri bir sidemenunun içine eklendi.
+13. Popular topics, popular posts ve last comment bilgileri bir sidemenunun içine eklendi. Popular
+posts ve last comment şu an dinamik.
 
 
 ## YARIŞMA METNİ
