@@ -322,30 +322,34 @@ const Styles = {
   },
 
   makeCommentFormName: {
-    width: '80%',
+    width: '92%',
     backgroundColor: 'whitesmoke', borderRadius: 8,
     border: 'none', boxShadow: 'none', outline: 'none',
     padding: 12,
+    fontFamily: 'PT Sans, serif',
+
     marginBottom: 20,
   },
 
   makeCommentFormDetails: {
-    width: '80%',
+    width: '92%',
     resize: 'none',
     letterSpacing: 1.4,
     backgroundColor: 'whitesmoke', borderRadius: 8,
     boxShadow: 'none',
+    fontFamily: 'PT Sans, serif',
+
     padding: 12
   },
 
   makeCommentFormButton : {
     marginTop: 32,
-    width: '25%',
+    width: '60%',
     letterSpacing: 3,
     fontWeight: 'bolder',
     padding: 4,
     borderRadius: 6,
-    fontSize: 14,
+    fontSize: '90%',
     border: '1px solid #001f3f',
     fontFamily: 'PT Sans, serif',
   },

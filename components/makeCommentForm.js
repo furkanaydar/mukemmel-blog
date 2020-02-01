@@ -72,7 +72,7 @@ class MakeCommentForm extends Component {
                             >
                             </textarea>
                             <button
-                                onClick={() => this.props.handleSubmit(this.state.name, this.state.details, this.props.origin)}
+                                onClick={() => this.props.handleSubmit(this.state.name, this.state.details)}
                                 className='submit-button'
                                 style={Styles.makeCommentFormButton}>
                                 SUBMIT

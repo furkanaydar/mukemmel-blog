@@ -45,7 +45,7 @@ class CurrentPost extends React.Component {
     window.location.reload();
   }
 
-  async postComment(name, details, origin) {
+  async postComment(name, details) {
     const data = {
       name: name,
       details: details,
@@ -57,7 +57,7 @@ class CurrentPost extends React.Component {
     };
     window.location.reload()
     this.scrollToCommentSection();
-    await fetch(origin + '/api/post/' + this.props.post.id + '/makeComment', settings);
+    await fetch('https://furkanaydar-blog.herokuapp.com/api/post/' + this.props.post.id + '/makeComment', settings);
 
   }
 
@@ -122,9 +122,9 @@ class CurrentPost extends React.Component {
       this.state.loading ? <LoadingSpinner></LoadingSpinner> :
         <div style={Styles.mama}>
           <Head>
-          <script
-      dangerouslySetInnerHTML={{
-        __html: `if (typeof window !== "undefined") {
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `if (typeof window !== "undefined") {
         // hacky force https
         if (window.location.protocol != "https:") {
           window.location.href =
@@ -132,8 +132,8 @@ class CurrentPost extends React.Component {
             window.location.href.substring(window.location.protocol.length);
         }
       }`
-      }}
-    />
+              }}
+            />
           </Head>
           <Sidebar lastComment={this.props.lastComment}
             lastCommentTitle={this.props.lastCommentTitle}
@@ -265,7 +265,7 @@ class CurrentPost extends React.Component {
                             <button
                               onClick={this.handleExpand}
                               className='submit-button'
-                              style={Styles.seeMoreButtonStyle}>
+                              style={Styles.makeCommentFormButton}>
                               {this.state.activeBorder == this.state.comments.length ? 'COLLAPSE' : 'SEE MORE'}
                             </button> : null}
                       </div>
@@ -299,7 +299,7 @@ class CurrentPost extends React.Component {
 }
 
 CurrentPost.getInitialProps = async ({ req, query }) => {
-  const { origin } = absoluteUrl(req)
+  const  { origin }  = absoluteUrl(req)
 
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   const posts_res = await fetch(origin + "/api/posts");
