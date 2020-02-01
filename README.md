@@ -1,5 +1,40 @@
 ## Blog Adresi -> [furkanaydar's blog](https://furkanaydar-blog.herokuapp.com)
 
+## Yapılacaklar
+1. Email aboneliğine kaydolan kullanıcılara yeni gönderilerin bildirimini gönderilecek. İnsanların
+kişisel bloga üye olması mantıklı gelmediği için email aboneliği sistemi kullanılabilir.
+2. Soldaki menü ekran küçülünce şimdilik gösterilmiyor. Mobil dostu bir site oluşturmak için küçük
+ekranlarda mail butonunu altına yuvarlak butonlar eklenecek, ve oradan soldaki menüdeki bilgilere
+ulaşılabilecek.
+3. Safaride ve mobil tarayıcılarda yorum yapılamıyor, düzeltilecek.
+4. Gönderiden yazı seçip yorum olarak annotation yapabilme özelliği eklenecek.
+5. Popular topics kısmı şimdilik statik. Gönderilerin beğeni ve yorum sayısına göre ilk 5 konu
+seçilip listelenecek.
+6. Domain alındı ancak https ile ilgili bir problem var. Düzeltince furkanaydar.com'a geçilecek.
+7. Google Analytics entegrasyonu.
+8. Veritabanı bilgileri şu an açık. Güvenli hale getirilecek. (Zeit/now)
+9. About me sayfasındaki mail atma butonu şu an kullanılmıyor. Özellik eklenecek.
+10. ExpressJS ile backend yazılabilir. Şu anlık serverless-mysql ve NextJs ile blog devam edebilir
+gibi görünüyor.
+
+## Yapılanlar
+
+1. Mobilde ve bilgisayar ekranında neredeyse sorunsuz kullanılabilecek responsive bir site oluşturuldu.
+2. Birçok componentin tasarımı detaylı şekilde yapıldı, ilerletilecek.
+3. Pagination eklendi.
+4. Yazıları ve blogu paylaşma linki eklendi.
+5. Statik about me ve dinamik 'posts' ve 'projects' sayfaları eklendi.
+6. Güncel host dinamik şekilde kullanılıyor.
+7. Şifre korumalı admin girişi eklendi. Admin için yazı ekleme arayüzü, yazıyı previewlama arayüzü,
+yazı ve yorumları silme özelliği eklendi. //TODO resimlerini buraya ekle
+8. Veritabanı eklendi. (serverless-mysql). Yorumlar, email aboneleri, içerikler ve admin bilgileri
+tutuluyor.
+9. Yorum yapılabiliyor, içerikler beğenilebiliyor.
+10. İçeriklere etiketler eklendi.
+11. İçerikler beğeni sayısına veya tarihe göre sıralanabiliyor.
+12. İçerikler etiketlerine, başlıklarına veya detaylarına göre search edilebiliyor.
+13. Popular topics, popular posts ve last comment bilgileri bir sidemenunun içine eklendi.
+
 
 ## YARIŞMA METNİ
 
