@@ -1,3 +1,8 @@
+## Blog Adresi -> [furkanaydar's blog](furkanaydar-blog.herokuapp.com)
+
+
+## YARIŞMA METNİ
+
 Dünyanın en güzel blog'u, www.mukemmel.blog!
 
 Bu proje nasıl kodlandı izlemek ister misin? Youtube videosu: https://youtu.be/cHUh0FmPd3A
